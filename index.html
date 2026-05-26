@@ -1,0 +1,1021 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, viewport-fit=cover" />
+<title>מדריך רמ"ח · תפמ"ק לוד-רמלה</title>
+<link href="https://fonts.googleapis.com/css2?family=Heebo:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  :root {
+    --bg: #0b1220; --surface: #161f33; --surface-2: #1e2942; --surface-3: #2a3654;
+    --border: #2a3654; --text: #f1f5f9; --text-2: #a5b4cf; --text-3: #6b7a99;
+    --accent: #3b82f6; --accent-2: #60a5fa; --accent-bg: rgba(59, 130, 246, 0.15);
+    --danger: #ef4444; --danger-bg: rgba(239, 68, 68, 0.13);
+    --warning: #f59e0b; --warning-bg: rgba(245, 158, 11, 0.13);
+    --success: #10b981; --success-bg: rgba(16, 185, 129, 0.13);
+    --purple: #a78bfa; --purple-bg: rgba(167, 139, 250, 0.13);
+  }
+  html, body { background: var(--bg); color: var(--text); font-family: 'Heebo', system-ui, sans-serif; font-size: 15px; line-height: 1.6; min-height: 100vh; -webkit-font-smoothing: antialiased; }
+  button { font-family: inherit; cursor: pointer; border: none; background: none; color: inherit; }
+  input, textarea { font-family: inherit; font-size: 15px; }
+  .app { min-height: 100vh; padding-bottom: 80px; }
+  .top-bar { background: var(--surface); border-bottom: 1px solid var(--border); padding: 14px 16px; display: flex; justify-content: space-between; align-items: center; position: sticky; top: 0; z-index: 50; }
+  .top-bar-title { font-size: 18px; font-weight: 800; background: linear-gradient(90deg, var(--accent-2), var(--purple)); -webkit-background-clip: text; background-clip: text; color: transparent; }
+  .top-bar-sub { font-size: 11px; color: var(--text-3); margin-top: 2px; }
+  .station-pill { background: var(--surface-2); border: 1px solid var(--border); padding: 6px 12px; border-radius: 20px; font-size: 12px; font-weight: 700; color: var(--accent-2); cursor: pointer; }
+  .station-pill:hover { border-color: var(--accent); }
+  .main { max-width: 900px; margin: 0 auto; padding: 16px; }
+  @media (min-width: 768px) { .main { padding: 24px; padding-bottom: 24px; } .app { padding-bottom: 24px; } }
+  .tab-bar { position: fixed; bottom: 0; left: 0; right: 0; background: var(--surface); border-top: 1px solid var(--border); display: grid; grid-template-columns: repeat(4, 1fr); padding-bottom: max(8px, env(safe-area-inset-bottom)); z-index: 40; }
+  .tab-btn { padding: 10px 4px; text-align: center; opacity: 0.55; transition: opacity 0.15s; }
+  .tab-btn.active { opacity: 1; }
+  .tab-btn-icon { font-size: 20px; }
+  .tab-btn-label { font-size: 10px; color: var(--text-2); margin-top: 2px; font-weight: 600; }
+  .tab-btn.active .tab-btn-label { color: var(--accent-2); }
+  @media (min-width: 768px) {
+    .tab-bar { position: sticky; top: 62px; bottom: auto; border-top: none; border-bottom: 1px solid var(--border); max-width: 900px; margin: 0 auto; padding: 0; }
+    .tab-btn { padding: 14px 8px; } .tab-btn-icon { font-size: 18px; } .tab-btn-label { font-size: 12px; }
+  }
+  .screen { display: none; animation: fadeIn 0.2s; }
+  .screen.active { display: block; }
+  @keyframes fadeIn { from { opacity: 0; transform: translateY(4px); } to { opacity: 1; transform: translateY(0); } }
+  .page-header { margin-bottom: 20px; }
+  .page-title { font-size: 24px; font-weight: 800; margin-bottom: 4px; }
+  .page-sub { color: var(--text-2); font-size: 14px; }
+  .card { background: var(--surface); border: 1px solid var(--border); border-radius: 12px; margin-bottom: 12px; overflow: hidden; }
+  .card-header { padding: 14px 16px; border-bottom: 1px solid var(--border); }
+  .card-title { font-size: 16px; font-weight: 700; }
+  .card-body { padding: 16px; }
+  .section-header { font-size: 13px; font-weight: 700; color: var(--text-3); text-transform: uppercase; letter-spacing: 0.5px; margin: 24px 0 10px; }
+  .section-header:first-child { margin-top: 0; }
+  .morning-hero { background: linear-gradient(135deg, var(--accent-bg), var(--purple-bg)); border: 1px solid var(--accent); border-radius: 16px; padding: 20px; margin-bottom: 20px; position: relative; overflow: hidden; }
+  .morning-hero::before { content: "\2615"; position: absolute; top: -20px; left: -10px; font-size: 100px; opacity: 0.08; transform: rotate(-15deg); }
+  .morning-hero-greeting { font-size: 13px; color: var(--accent-2); font-weight: 600; margin-bottom: 4px; }
+  .morning-hero-title { font-size: 22px; font-weight: 800; margin-bottom: 6px; }
+  .morning-hero-sub { color: var(--text-2); font-size: 14px; }
+  .morning-progress { margin-top: 14px; height: 6px; background: rgba(255,255,255,0.1); border-radius: 3px; overflow: hidden; }
+  .morning-progress-fill { height: 100%; background: linear-gradient(90deg, var(--accent), var(--purple)); transition: width 0.3s; }
+  .morning-progress-text { font-size: 12px; color: var(--text-2); margin-top: 6px; font-weight: 600; }
+  .checklist-group { background: var(--surface); border: 1px solid var(--border); border-radius: 12px; margin-bottom: 10px; overflow: hidden; }
+  .checklist-group-header { padding: 12px 16px; background: var(--surface-2); display: flex; justify-content: space-between; align-items: center; gap: 12px; }
+  .checklist-group-title-wrap { display: flex; align-items: center; gap: 10px; }
+  .checklist-group-icon { font-size: 20px; }
+  .checklist-group-title { font-weight: 700; font-size: 14px; }
+  .checklist-group-progress { color: var(--text-3); font-size: 12px; font-weight: 700; background: var(--bg); padding: 3px 10px; border-radius: 10px; }
+  .checklist-group-progress.done { background: var(--success-bg); color: var(--success); }
+  .checklist-item { padding: 12px 16px; display: flex; gap: 12px; border-top: 1px solid var(--border); cursor: pointer; transition: background 0.15s; align-items: flex-start; }
+  .checklist-item:hover { background: var(--surface-2); }
+  .check-box { width: 22px; height: 22px; border: 2px solid var(--text-3); border-radius: 5px; flex-shrink: 0; margin-top: 1px; display: flex; align-items: center; justify-content: center; transition: all 0.15s; }
+  .checklist-item.done .check-box { background: var(--success); border-color: var(--success); }
+  .checklist-item.done .check-box::after { content: "\2713"; color: white; font-weight: 800; font-size: 14px; }
+  .checklist-item-text { flex: 1; line-height: 1.5; }
+  .checklist-item.done .checklist-item-text { text-decoration: line-through; color: var(--text-3); }
+  .checklist-item-detail { color: var(--text-2); font-size: 13px; margin-top: 4px; }
+  .checklist-item.done .checklist-item-detail { display: none; }
+  .reset-btn { width: 100%; background: var(--surface-2); border: 1px solid var(--border); padding: 12px; border-radius: 10px; color: var(--text-2); font-weight: 600; margin-top: 16px; transition: all 0.15s; }
+  .reset-btn:hover { background: var(--surface-3); color: var(--text); }
+  .search-box { background: var(--surface); border: 1px solid var(--border); border-radius: 12px; padding: 14px 16px; margin-bottom: 16px; display: flex; align-items: center; gap: 10px; }
+  .search-box input { flex: 1; background: transparent; border: none; color: var(--text); outline: none; direction: rtl; }
+  .search-box input::placeholder { color: var(--text-3); }
+  .event-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(160px, 1fr)); gap: 10px; }
+  .event-tile { background: var(--surface); border: 1px solid var(--border); border-radius: 12px; padding: 16px 12px; text-align: center; cursor: pointer; transition: all 0.15s; }
+  .event-tile:hover { border-color: var(--accent); transform: translateY(-2px); }
+  .event-tile-icon { font-size: 32px; margin-bottom: 8px; display: block; }
+  .event-tile-name { font-weight: 700; font-size: 14px; margin-bottom: 4px; }
+  .event-tile-class { font-size: 11px; color: var(--text-3); background: var(--surface-2); padding: 2px 8px; border-radius: 10px; display: inline-block; margin-top: 4px; font-weight: 600; }
+  .event-tile-class.critical { background: var(--danger-bg); color: var(--danger); }
+  .back-btn { color: var(--accent-2); font-weight: 600; margin-bottom: 12px; display: inline-flex; align-items: center; gap: 6px; padding: 6px 0; }
+  .back-btn:hover { color: var(--accent); }
+  .event-detail-header { background: var(--surface); border: 1px solid var(--border); border-radius: 12px; padding: 20px; margin-bottom: 16px; }
+  .event-detail-icon-row { display: flex; align-items: center; gap: 12px; margin-bottom: 12px; }
+  .event-detail-icon { font-size: 36px; }
+  .event-detail-title { font-size: 22px; font-weight: 800; }
+  .event-detail-classifications { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 10px; }
+  .pill { background: var(--surface-2); padding: 5px 12px; border-radius: 12px; font-size: 12px; font-weight: 600; }
+  .pill-class { background: var(--accent-bg); color: var(--accent-2); }
+  .pill-danger { background: var(--danger-bg); color: var(--danger); }
+  .pill-warning { background: var(--warning-bg); color: var(--warning); }
+  .pill-success { background: var(--success-bg); color: var(--success); }
+  .step-list { background: var(--surface); border: 1px solid var(--border); border-radius: 12px; margin-bottom: 12px; overflow: hidden; }
+  .step-list-title { padding: 14px 16px; background: var(--surface-2); font-weight: 700; border-bottom: 1px solid var(--border); display: flex; align-items: center; gap: 10px; }
+  .step-list-title .step-list-icon { font-size: 20px; }
+  .step { display: flex; gap: 14px; padding: 14px 16px; border-top: 1px solid var(--border); }
+  .step:first-of-type { border-top: none; }
+  .step-num { width: 28px; height: 28px; border-radius: 50%; background: var(--accent); color: white; display: flex; align-items: center; justify-content: center; font-weight: 800; font-size: 14px; flex-shrink: 0; }
+  .step-content { flex: 1; }
+  .step-title { font-weight: 700; margin-bottom: 4px; line-height: 1.4; }
+  .step-detail { color: var(--text-2); font-size: 13px; line-height: 1.55; }
+  .step-detail strong { color: var(--text); }
+  .tip-box { margin: 10px 0; padding: 10px 12px; border-radius: 8px; font-size: 13px; line-height: 1.5; }
+  .tip-box-danger { background: var(--danger-bg); border-right: 3px solid var(--danger); }
+  .tip-box-warning { background: var(--warning-bg); border-right: 3px solid var(--warning); }
+  .tip-box-info { background: var(--accent-bg); border-right: 3px solid var(--accent); }
+  .tip-box-success { background: var(--success-bg); border-right: 3px solid var(--success); }
+  .tip-box-purple { background: var(--purple-bg); border-right: 3px solid var(--purple); }
+  .tip-box-title { font-weight: 700; margin-bottom: 4px; font-size: 13px; }
+  .tip-box-title.danger { color: var(--danger); }
+  .tip-box-title.warning { color: var(--warning); }
+  .tip-box-title.info { color: var(--accent-2); }
+  .tip-box-title.success { color: var(--success); }
+  .tip-box-title.purple { color: var(--purple); }
+  .form-list { list-style: none; }
+  .form-list li { padding: 8px 0; border-bottom: 1px solid var(--border); display: flex; align-items: center; gap: 8px; }
+  .form-list li:last-child { border-bottom: none; }
+  .form-list li::before { content: "\1F4CB"; font-size: 14px; }
+  .class-card { background: var(--surface); border: 1px solid var(--border); border-radius: 12px; padding: 14px 16px; margin-bottom: 10px; }
+  .class-card-header { display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 6px; }
+  .class-code { font-size: 18px; font-weight: 800; color: var(--accent-2); background: var(--accent-bg); padding: 4px 12px; border-radius: 8px; }
+  .class-name { font-weight: 600; margin-bottom: 6px; }
+  .class-desc { color: var(--text-2); font-size: 13px; }
+  .class-when { margin-top: 8px; padding-top: 8px; border-top: 1px solid var(--border); font-size: 12px; color: var(--text-3); }
+  .class-when strong { color: var(--text-2); }
+  .tip-category { background: var(--surface); border: 1px solid var(--border); border-radius: 12px; margin-bottom: 12px; overflow: hidden; }
+  .tip-category-header { padding: 14px 16px; background: var(--surface-2); font-weight: 700; display: flex; align-items: center; gap: 10px; cursor: pointer; }
+  .tip-category-icon { font-size: 22px; }
+  .tip-category-chevron { margin-right: auto; color: var(--text-3); transition: transform 0.2s; }
+  .tip-category.expanded .tip-category-chevron { transform: rotate(90deg); }
+  .tip-category-body { display: none; }
+  .tip-category.expanded .tip-category-body { display: block; }
+  .tip-item { padding: 12px 16px; border-top: 1px solid var(--border); }
+  .tip-item-q { font-weight: 700; color: var(--accent-2); margin-bottom: 6px; font-size: 14px; }
+  .tip-item-a { color: var(--text); font-size: 14px; line-height: 1.6; }
+  .tip-item-a strong { color: var(--accent-2); }
+  .modal-overlay { position: fixed; inset: 0; background: rgba(0,0,0,0.7); z-index: 100; display: none; align-items: flex-end; justify-content: center; }
+  .modal-overlay.open { display: flex; }
+  .modal { background: var(--surface); width: 100%; max-width: 600px; max-height: 85vh; border-radius: 16px 16px 0 0; overflow-y: auto; animation: slideUp 0.25s; }
+  @keyframes slideUp { from { transform: translateY(100%); } to { transform: translateY(0); } }
+  @media (min-width: 768px) { .modal-overlay { align-items: center; padding: 24px; } .modal { border-radius: 16px; max-height: 80vh; } }
+  .modal-header { padding: 16px; border-bottom: 1px solid var(--border); display: flex; justify-content: space-between; align-items: center; position: sticky; top: 0; background: var(--surface); z-index: 1; }
+  .modal-close { color: var(--text-2); padding: 4px 8px; font-size: 14px; font-weight: 600; }
+  .modal-body { padding: 16px; }
+  .modal-title { font-size: 18px; font-weight: 800; }
+  .station-option { padding: 14px; background: var(--surface-2); border: 1px solid var(--border); border-radius: 10px; margin-bottom: 10px; cursor: pointer; }
+  .station-option:hover { border-color: var(--accent); }
+  .station-option.selected { border-color: var(--accent); background: var(--accent-bg); }
+  .station-option-name { font-weight: 700; font-size: 16px; }
+  .station-option-detail { color: var(--text-2); font-size: 13px; margin-top: 4px; }
+  .profile-hero { background: linear-gradient(135deg, var(--surface-2), var(--surface)); border: 1px solid var(--border); border-radius: 12px; padding: 20px; margin-bottom: 16px; }
+  .profile-hero-name { font-size: 24px; font-weight: 800; margin-bottom: 4px; }
+  .profile-hero-meta { color: var(--text-2); font-size: 14px; }
+  .profile-stats { display: grid; grid-template-columns: repeat(2, 1fr); gap: 8px; margin-top: 16px; }
+  .profile-stat { background: var(--bg); padding: 10px; border-radius: 8px; }
+  .profile-stat-label { font-size: 11px; color: var(--text-3); }
+  .profile-stat-value { font-size: 16px; font-weight: 700; margin-top: 2px; }
+  .role-card { background: var(--surface); border: 1px solid var(--border); border-radius: 10px; padding: 14px; margin-bottom: 8px; }
+  .role-card-name { font-weight: 700; margin-bottom: 4px; }
+  .role-card-resp { color: var(--text-2); font-size: 13px; }
+  .empty { text-align: center; padding: 40px 20px; color: var(--text-3); }
+  .empty-icon { font-size: 48px; margin-bottom: 12px; }
+  .floating-tip { position: fixed; bottom: 100px; left: 50%; transform: translateX(-50%); background: var(--success); color: white; padding: 12px 20px; border-radius: 10px; font-weight: 700; z-index: 200; box-shadow: 0 4px 16px rgba(0,0,0,0.5); animation: toastIn 0.3s; }
+  @keyframes toastIn { from { opacity: 0; transform: translate(-50%, 10px); } to { opacity: 1; transform: translate(-50%, 0); } }
+</style>
+</head>
+<body>
+<div class="app">
+  <div class="top-bar">
+    <div>
+      <div class="top-bar-title">מדריך רמ"ח · תפמ"ק</div>
+      <div class="top-bar-sub">צ׳קליסט · הנחיות · טיפים</div>
+    </div>
+    <button class="station-pill" id="station-pill" onclick="openStationPicker()">תחנת לוד 📍</button>
+  </div>
+  <nav class="tab-bar">
+    <button class="tab-btn active" data-target="morning"><div class="tab-btn-icon">☕</div><div class="tab-btn-label">צ׳קליסט בוקר</div></button>
+    <button class="tab-btn" data-target="events"><div class="tab-btn-icon">🚨</div><div class="tab-btn-label">מה לעשות?</div></button>
+    <button class="tab-btn" data-target="classifications"><div class="tab-btn-icon">📑</div><div class="tab-btn-label">סיווגים</div></button>
+    <button class="tab-btn" data-target="tips"><div class="tab-btn-icon">💡</div><div class="tab-btn-label">טיפים</div></button>
+  </nav>
+  <main class="main">
+    <section class="screen active" id="screen-morning"></section>
+    <section class="screen" id="screen-events"></section>
+    <section class="screen" id="screen-classifications"></section>
+    <section class="screen" id="screen-tips"></section>
+    <section class="screen" id="screen-profile"></section>
+  </main>
+</div>
+<div class="modal-overlay" id="modal">
+  <div class="modal">
+    <div class="modal-header">
+      <button class="modal-close" onclick="closeModal()">סגור</button>
+      <div class="modal-title" id="modal-title"></div>
+      <div style="width: 40px;"></div>
+    </div>
+    <div class="modal-body" id="modal-body"></div>
+  </div>
+</div>
+<script>
+const STATIONS = {
+  lod: {
+    id: 'lod', name: 'לוד', fullName: 'תחנת לוד', district: 'מרחב שפלה',
+    population: 'מעורבת - יהודית, ערבית, אתיופית',
+    challenges: 'אלמ"ב גבוהה, סכסוכי שכנים, סמים, פשיעה מאורגנת',
+    notes: 'תחנה עמוסה - הקפד על תיעוד מסודר. עבודה צמודה עם רווחה ועם משרד התביעות.',
+    keyRoles: [
+      { name: 'מפקד התחנה', resp: 'אחראי כללי לכל הפעילות בתחנה' },
+      { name: 'קצין אח"מ מרחבי', resp: 'מאשר חקירות עו"ד, חיפושים מיוחדים, סגירת תיקי פשע' },
+      { name: 'רל"ח (רכז לחקירות)', resp: 'מאשר טיפול בזירת מקרה מוות, ויתור על נתיחה' },
+      { name: 'קצין אלמ"ב', resp: 'מפקח על כל תיקי אלמ"ב, ביקורת כל שבועיים' },
+      { name: 'רמ"ח (ראש מחלקת חקירות)', resp: 'מנהל את משרד החקירות בשגרה היומיומית' },
+      { name: 'קצין תורן', resp: 'אחראי על כל תיק חדש שנפתח במשמרת' }
+    ]
+  },
+  ramla: {
+    id: 'ramla', name: 'רמלה', fullName: 'תחנת רמלה', district: 'מרחב שפלה',
+    population: 'מעורבת - יהודית, ערבית',
+    challenges: 'פשיעה מאורגנת, אלמ"ב, סמים, מאבקי שליטה',
+    notes: 'דגש על תיקי מין רגישים - חוקרת מוסמכת חובה. עבודה עם פרקליטות מחוז המרכז.',
+    keyRoles: [
+      { name: 'מפקד התחנה', resp: 'אחראי כללי לכל הפעילות בתחנה' },
+      { name: 'קצין אח"מ מרחבי', resp: 'מאשר חקירות עו"ד, חיפושים, סגירת תיקי פשע' },
+      { name: 'רל"ח', resp: 'מאשר טיפול בזירת מקרה מוות' },
+      { name: 'קצין אלמ"ב', resp: 'פיקוח על כל תיקי אלמ"ב' },
+      { name: 'רמ"ח', resp: 'ניהול שוטף של משרד החקירות' },
+      { name: 'קצין תורן', resp: 'אחראי על תיקים חדשים במשמרת' }
+    ]
+  }
+};
+
+const state = {
+  station: localStorage.getItem('station') || 'lod',
+  screen: 'morning',
+  currentEvent: null,
+  checklistState: JSON.parse(localStorage.getItem('checklist') || '{}'),
+  expandedTips: new Set()
+};
+
+const MORNING_CHECKLIST = [
+  { id: 'g1', title: 'מצב התחנה - סקירה כללית', icon: '📊', items: [
+    { id: 'g1-1', text: 'בדוק תיקים פתוחים במשרד החקירות', detail: 'פלא"א - כמה תיקים פעילים, באיזה סטטוס' },
+    { id: 'g1-2', text: 'סקור עצורים שנמצאים כעת בכליאה', detail: 'בדוק דדליין 24 שעות לכל עצור, מי צריך להתייצב היום בבית משפט' },
+    { id: 'g1-3', text: 'קרא את סיכום המשמרת הקודמת', detail: 'מה קרה בלילה, מה צריך להמשיך לטפל' },
+    { id: 'g1-4', text: 'בדוק תיקים שנקלטו במשמרת הלילה', detail: 'תיקים חדשים שצריכים סיווג והנחיות' }
+  ]},
+  { id: 'g2', title: 'תיקים דורשי טיפול מיידי', icon: '🔴', items: [
+    { id: 'g2-1', text: 'בדוק תיקי אלמ"ב פעילים', detail: 'מי מהחשודים צריך להיחקר תוך 7 ימים - דדליין' },
+    { id: 'g2-2', text: 'בדוק עצורים שצריכים להגיע לבימ"ש', detail: 'הארכת מעצר, הכנת תיק לשופט' },
+    { id: 'g2-3', text: 'בדוק תיקי מין פתוחים', detail: 'חוקרת מוסמכת זמינה? דדליין 6 חודשים לערר?' },
+    { id: 'g2-4', text: 'בדוק תיקי תמ"מ (מקרה מוות)', detail: 'יש החלטות נתיחה ממתינות? עדכון רל"ח?' }
+  ]},
+  { id: 'g3', title: 'הנחיות לחוקרים', icon: '📋', items: [
+    { id: 'g3-1', text: 'תיקים שממתינים להנחיה - תן הנחיות', detail: 'כל תיק חדש דורש: סיווג, עבירות, פעולות חקירה' },
+    { id: 'g3-2', text: 'הצמדת תיקים חדשים לחוקרים', detail: 'דרך הפלא"א, התאם עומס ויכולת מקצועית' },
+    { id: 'g3-3', text: 'בדוק התקדמות תיקים פתוחים', detail: 'מה הושלם, מה ממתין, מי בעצור על מה' },
+    { id: 'g3-4', text: 'תאם פגישות עם פרקליטות/תביעות', detail: 'תיקים שצריכים החלטה על העמדה לדין/סגירה' }
+  ]},
+  { id: 'g4', title: 'מערכות ופלא"א', icon: '💻', items: [
+    { id: 'g4-1', text: 'בדוק התראות במערכת פלא"א', detail: 'תיקים חורגים מזמן, פעולות שלא בוצעו' },
+    { id: 'g4-2', text: 'הזן ידיעות שהתקבלו במהלך המשמרת', detail: 'מידע מודיעיני, דוחות פעולה' },
+    { id: 'g4-3', text: 'עדכן סטטוס תיקים שהתקדמו', detail: 'בחקירה / ממתין למז"פ / הועבר לפרקליטות' }
+  ]},
+  { id: 'g5', title: 'קשר עם גורמים חיצוניים', icon: '🤝', items: [
+    { id: 'g5-1', text: 'תאם עם שירותי הרווחה (אלמ"ב, נוער)', detail: 'במיוחד אם יש ילדים מתחת ל-14 שחשופים לאלימות' },
+    { id: 'g5-2', text: 'בדוק תקשורת עם מצ"ח אם יש חיילים מעורבים', detail: 'כל מקרה של חייל סדיר עם סמים/אלמ"ח - מצ"ח' },
+    { id: 'g5-3', text: 'תיאום עם מז"פ לבדיקות שצריכות לרוץ', detail: 'דנ"א, ט.א, חוות דעת מומחה' }
+  ]}
+];
+
+const CLASSIFICATIONS_REF = [
+  { code: 'פ.א', name: 'פנקס אשמות', desc: 'כל תיק עם עבירה פלילית.', when: 'דוגמאות: התפרצות, תקיפה, אלמ"ב, עבירות מין, סמים, רצח. למעשה - רוב התיקים.' },
+  { code: 'ח.כ', name: 'חקירה כללית', desc: 'תיק ללא עבירה פלילית - חקירה בלבד.', when: 'דוגמה: מדריכה בתנועת נוער דיווחה שחניך נראה מבוהל - אין עבירה אבל יש לבדוק.' },
+  { code: 'א.נ', name: 'איכון נעדר', desc: 'תיק של אדם שנעלם / לא חוזר הביתה.', when: 'דוגמה: בן 22 לא חזר הביתה, רכבו נמצא ברחוב. אם נמצא מת - פותחים בנוסף תיק תמ"מ.' },
+  { code: 'ש.כ', name: 'שריפות כללי', desc: 'תיק שריפה ללא חשד להצתה.', when: 'דוגמה: רכב עלה באש בחניה ציבורית. אם יתברר שזו הצתה - פותחים תיק חדש פ.א.' },
+  { code: 'תמ"מ', name: 'תיק מקרה מוות', desc: 'תיק מוות טבעי ללא חשד פלילי.', when: 'דוגמה: אדם בן 67 נמצא מת בדירתו, אין סימני אלימות. אם עולה חשד - תיק חדש פ.א.' },
+  { code: 'ת.ע', name: 'תאונת עבודה', desc: 'תאונה במקום עבודה ללא חשד לפלילי.', when: 'דוגמה: פועל בניין נפל מהגג ונפצע. אם רשלנות פלילית - יסווג גם פ.א.' },
+  { code: 'ט', name: 'טיפול - קטין', desc: 'תיק נוער - קטין אב"ע (אינו בר עונשין, מתחת לגיל 12) או עם עבר.', when: 'דוגמה: ילד בן 11 תקף את בנו של מתלונן. אין הליך פלילי - רק טיפול ורווחה.' },
+  { code: 'ט.מ', name: 'טיפול מותנה', desc: 'תיק נוער של עבירה ראשונה - הזדמנות לטיפול במקום הליך פלילי.', when: 'דוגמה: קטין בן 13 גנב בסופר בפעם הראשונה. אם משתף פעולה בטיפול - לא נרשם פלילית.' },
+  { code: 'פ.ל', name: 'תיק תנועה', desc: 'עבירות תעבורה - תאונות דרכים, נהיגה בשכרות וכו\'.', when: 'כל עבירה לפי פקודת התעבורה. נמסר לאחראי תנועה במרחב.' },
+  { code: 'ל.א', name: 'ללא אישום', desc: 'סיווג זמני ביחידות ארציות - עד להחלטה על העמדה לדין.', when: 'דוגמה: שימוש עצמי בסמים - לפעמים נשאר ל.א עד החלטה על טיפול מותנה.' },
+  { code: 'אס"כ', name: 'אירוע סיור כללי', desc: 'אירוע שטיפל בו סייר, ללא עבירה.', when: 'דוגמה: סכסוך בין שכנים על מקום חניה. הסייר רשם דוח, אין עבירה. החומר יתויק בסיור.' },
+  { code: 'אלמוני', name: 'אלמוני (לא מזוהה)', desc: 'סיווג זמני לתיק מקרה מוות של אדם שלא זוהה.', when: 'דוגמה: גופה ברחוב ללא ת"ז. סיווג אלמוני עד זיהוי. אם עולה חשד פלילי - גם פ.א.' }
+];
+
+const TIPS_CATEGORIES = [
+  { id: 'classification', title: 'סיווג תיקים - שאלות נפוצות במבחן', icon: '📑', tips: [
+    { q: 'אדם מתלונן שדירתו נפרצה ונגנב אקדח. סיווג?', a: '<strong>פ.א</strong> - יש עבירה פלילית (התפרצות + גניבה + גניבת נשק).' },
+    { q: 'ילד שנעלם ונמצא מת. סיווג?', a: '<strong>פותחים תיק חדש ומסווגים תמ"מ.</strong> תיק הא.נ נשאר פתוח, פותחים תיק נוסף תמ"מ. שני תיקים נפרדים.' },
+    { q: 'רכב עלה באש בחניה. סיווג?', a: '<strong>חומר דליקות (ש.כ).</strong> אם יתברר לאחר בדיקת חומר שריפות שזו הצתה - <strong>ישונה לפ.א</strong>.' },
+    { q: 'פועל בניין נפל מהגג ונפצע. סיווג?', a: '<strong>ת.ע (תאונת עבודה).</strong> אם יש חשד לרשלנות פלילית - שינוי סיווג ל-פ.א.' },
+    { q: 'סייר טיפל בסכסוך חנייה ללא עבירה. סיווג?', a: '<strong>אס"כ (אירוע סיור כללי).</strong> החומר יתויק בסיור עצמו.' },
+    { q: 'קטין בן 11 תקף את בנו של מתלונן. סיווג?', a: '<strong>ט (טיפול).</strong> אינו בר עונשין - אין הליך פלילי, רק טיפול ורווחה.' },
+    { q: 'קטין בן 13 גנב בסופר, אין עבר קודם. סיווג?', a: '<strong>ט.מ (טיפול מותנה).</strong> הזדמנות לטיפול במקום הליך פלילי מלא.' },
+    { q: 'גופה ברחוב ללא זיהוי, ללא סימני אלימות. סיווג?', a: '<strong>אלמוני.</strong> אם בנתיחה יתברר הרעלה - פותחים בנוסף פ.א.' },
+    { q: 'אדם התלונן שכן מעלים מס. סיווג?', a: 'בהנחיית קצין פקד ומעלה (סעיף 59) - <strong>להעביר ליחידה החוקרת המוסמכת</strong> (רשות מסים).' }
+  ]},
+  { id: 'authority', title: 'סמכויות סגירה - מי רשאי?', icon: '👮', tips: [
+    { q: 'מת"ח מוסמך לגנוז תיק עם חוסר ראיות?', a: '<strong>לא.</strong> מת"ח לא מוסמך לגנוז בעילה זו.' },
+    { q: 'ממ"ז מוסמך לגנוז תיק עם חוסר ראיות?', a: '<strong>לא.</strong> ממ"ז לא מוסמך לעילה הזו.' },
+    { q: 'מפקד המחוז יכול לסגור תיק ניסיון רצח על"ן?', a: '<strong>לא.</strong> מפקד המחוז סוגר בעבירות פשע רק בעילות מות הנאשם/החשוד או אינו בר עונשין. הרשאה לגנוז תיק זה בעילת על"ן היא בסמכות פרקליט מחוז.' },
+    { q: 'רמ"ח רשאי לסגור איזה תיקים?', a: '<strong>רק עוונות.</strong> עבירות פשע - יועברו עם המלצה לפרקליטות/תביעות.' },
+    { q: 'מי מאשר חיפוש אצל עו"ד?', a: '<strong>מפקד מחוז או ראש אח"מ.</strong> בלהב 433 - ראש להב או ראש אח"מ.' }
+  ]},
+  { id: 'almab_specific', title: 'אלמ"ב - דגשים קריטיים', icon: '🚨', tips: [
+    { q: 'מתי חובת דיווח לרווחה?', a: 'כשיש <strong>ילדים מתחת לגיל 14</strong> שנחשפו לעבירת אלמ"ב, או כשהעבירה חבלה / תוצאות חמורות.' },
+    { q: 'מה תוקף צו הגנה ראשון?', a: '<strong>7 ימים במעמד צד אחד.</strong> אח"כ הארכה במעמד שני הצדדים. <strong>תוקף מקסימלי - שנה.</strong>' },
+    { q: 'מה לעשות אם החשוד הפר צו הגנה?', a: '<strong>אין לשחרר את החשוד</strong> אלא אם כן יש נימוק אחר והגיוני למדוע הפר.' },
+    { q: 'מה הדדליין לחקירת החשוד באלמ"ב?', a: '<strong>7 ימים</strong> מפתיחת התיק. הקצין צריך לבדוק כל תיק אלמ"ב תוך שבוע מפתיחתו.' },
+    { q: 'מה תדירות ביקורת קצין אלמ"ב?', a: '<strong>כל שבועיים</strong> - ביקורת בכלל תיקי האלמ"ב.' },
+    { q: 'גבר יכול להעיד על אישה ולהפך באלמ"ב?', a: '<strong>כן.</strong> בעבירות אלמ"ב אין הגבלה על מתן עדות בני זוג זה על זה.' }
+  ]},
+  { id: 'death_specific', title: 'מקרה מוות - הליך נכון', icon: '⚰️', tips: [
+    { q: 'מי רשאי לבקש חקירת סיבת מוות (חס"מ)?', a: 'סעיף 19 לחוק: <strong>קצין משטרה, יועמ"ש או בא כוחו, רופא, או כל אדם מעוניין</strong> (בן זוג, הורים, ילדים, אחים).' },
+    { q: 'מתי חובה לפתוח חקירת חס"מ?', a: '1) חשש סביר שהמוות לא טבעי. 2) שמותו נגרם בעבירה. 3) מת אדם בהיותו במעצר/מאסר/אישפוז במוסד סגור.' },
+    { q: 'מהי היררכיית ההסכמה לנתיחה?', a: '<strong>בן/בת זוג ← ילדים ← הורים ← אחים/אחיות.</strong> הראשון בהיררכיה הזמין הוא הקובע.' },
+    { q: 'בן הזוג מאשר נתיחה והילדים מתנגדים. מה עושים?', a: '<strong>פונים לבית משפט.</strong> סתירה בדרגה אחת מתחת בהיררכיה - דרושה החלטה שיפוטית.' },
+    { q: 'בן הזוג מאשר וההורים מתנגדים. מה עושים?', a: '<strong>הולכים לנתיחה לפי אישור בן הזוג.</strong> ההורים בדרגה נמוכה יותר - לא משמעותי.' },
+    { q: 'מי המוסמך לקבוע סיבת מוות?', a: '<strong>הממונה על החקירה + רופא מהמכון לרפואה משפטית.</strong> חוו"ד של רופא רגיל לא מספיקה למנוע נתיחה.' },
+    { q: 'מי מאשר הוצאת גופה מקבר?', a: '<strong>קצין אח"מ מחוזי</strong> - דרך בקשה לבית משפט שלום.' }
+  ]},
+  { id: 'attorney_specific', title: 'חקירת עו"ד - אישורים', icon: '⚖️', tips: [
+    { q: 'עו"ד נחקר כעד - לא קשור ללקוח. מי מאשר?', a: '<strong>ק\' אח"מ מרחבי</strong> ביחידות מרחב/תחנה. <strong>ראש יחידת חקירות מחוזית</strong> ביחידה מחוזית. <strong>ראש יחידה ארצית</strong> בלהב 433.' },
+    { q: 'עו"ד נחקר כעד - קשור ללקוח. מי מאשר?', a: '<strong>ק\' אח"מ מחוזי (גורם מאשר בכיר).</strong> תנאים: אין דרך סבירה אחרת + טובת החקירה גוברת על האינטרס בשמירת יחסי אמון.' },
+    { q: 'עו"ד נחקר כחשוד בעניין הקשור ללקוח. מי מאשר?', a: '<strong>פרקליט מחוז</strong> דרך הגורם המאשר הבכיר.' },
+    { q: 'עו"ד מהשירות המשפטי הציבורי נחקר כחשוד. הליך?', a: 'הגורם המאשר הבכיר <strong>מודיע ליועמ"ש</strong> דרך ראש אח"מ <strong>לפני החקירה</strong>. בדחיפות - מיד אחרי.' },
+    { q: 'מי מאשר חיפוש אצל עו"ד?', a: '<strong>מפקד מחוז או ראש אח"מ.</strong> חובה הודעה ליו"ר הוועד המחוזי של לשכת עוה"ד.' },
+    { q: 'נתפס מוצג חסוי בחיפוש. מה עושים?', a: 'מכניסים ל<strong>מעטפה סגורה וחתומה</strong>, לא עיינים בו - עד הכרעת בימ"ש בשאלת החיסיון.' }
+  ]},
+  { id: 'closure_appeals', title: 'סגירה ועררים', icon: '📕', tips: [
+    { q: 'מה ההבדל בין גניזה לסגירה?', a: '<strong>סגירה</strong> = סיום חקירה באופן מחולט. <strong>גניזה</strong> = להפסיק לחקור / לא להמשיך, אבל יכול לפתוח שוב (למשל בעל"ן).' },
+    { q: 'מה הדדליין למתלונן להגיש ערר?', a: '<strong>30 יום</strong> מקבלת הודעה על סגירת התיק (סעיף 65 לחסד"פ).' },
+    { q: 'מה הדדליין להחלטה בערר בעבירות מין/אלימות פשע?', a: '<strong>6 חודשים</strong> מיום הגשת הערר (סעיף 65א). דורש העברה מהירה לפרקליטות.' },
+    { q: 'הגיע ערר ומועד ההגשה כבר חלף. מה לעשות?', a: '<strong>להנחות את המתלונן לצרף בקשה מנומקת להארכת מועד.</strong> המוסמך לדון בערר מוסמך גם להחליט על הארכה.' },
+    { q: 'התקבל ערר על החלטה של פרקליט מחוזי. מה לעשות?', a: 'להעביר את כתב הערר + כלל חומר החקירה <strong>אל פרקליט המחוז</strong>. לעדכן את העורר על העברה.' },
+    { q: 'אופן הגשת ערר - לפי כותרת או תוכן?', a: 'נוהל אח"מ 300.05.272: <strong>לפי תוכנו, לא לפי כותרתו, אופן עריכתו או רלוונטיות הנמען.</strong>' },
+    { q: 'ק\' חקירות סוגר תיק והחליט אחרי ערר לפתוח שוב. מה הליך?', a: '<strong>לפתוח חקירה ללא דיווח נוסף</strong> ולדווח לגורם הממונה. לתייק בתיק (גם בפלא"א) את הערר והמענה.' }
+  ]},
+  { id: 'evidence_access', title: 'זכות עיון בחומר חקירה', icon: '📂', tips: [
+    { q: 'מתלונן רוצה לעיין בחומר חקירה לערר. מותר?', a: '<strong>כן - יש לאפשר זכות עיון.</strong> הכלל - מסמכי רשות הציבור פתוחים בעיקרון. הנטל על המשטרה לנמק סירוב.' },
+    { q: 'מהי "תרשומת פנימית" שלא נמסרת?', a: 'הנחיה לשוטר, חיווי דעה, המלצה, תכנית חקירה עתידית, סיכום חקירה, בקשה לתעודת חיסיון, תרשומת לעיון שופט בלבד.' },
+    { q: 'אילו חומרים כן נמסרים לעיון לקראת ערר?', a: 'הודעות נאשם/עד, דוחות פעולה (חיפוש, מעצר, עיקוב, מסדר זיהוי), צילומים, חפצים שנתפסו, חוות דעת מומחה, האזנות סתר רלוונטיות.' },
+    { q: 'חומר חקירה על רקע מודיעיני. מה לעשות?', a: '<strong>להפיק פרפרזה</strong> וחסיונות לפני העברתם לעיון החשוד/קורבן/בא כוחם.' }
+  ]},
+  { id: 'general', title: 'דגשים כלליים שתמיד עוזרים', icon: '💡', tips: [
+    { q: 'מה ההבדל בין הנחיה טכנית למהותית?', a: '<strong>טכניות:</strong> קליטת חומר, צילום, סריקה, צירוף ר.פ. <strong>מהותיות:</strong> התאמת סעיפי חוק, הנחיות חקירה, תפיסת מוצגים, איתור מובילים.' },
+    { q: 'מה מבחן הראיה המנהלית?', a: 'האם הראיות בתיק כאלו ש<strong>אדם סביר היה סומך עליהן</strong> כדי לקבוע שהחשד קיים ועומד.' },
+    { q: 'מתי נכון לסגור בעילת נל"מ?', a: 'כשיש <strong>ראיות מספיקות</strong> אבל <strong>אין עניין ציבורי</strong> בהעמדה לדין. שיקול: חומרת מעשה, נסיבות אישיות של חשוד וקורבן.' },
+    { q: 'מתי תיק יסווג ל.א ולא פ.א?', a: 'ביחידות ארציות, עד החלטה האם יש עבירה. דוגמה: שימוש עצמי בסמים.' },
+    { q: 'מה לעשות בתיק רגישות גבוהה?', a: 'יכנס ל<strong>השהיה</strong> ויקבל טיפול בטרם ייסגר על ידי בעל סמכות מתאים. תיקי כדורגל, בחירות, מאוימים - דורשים אישור ק\' אח"מ מרחבי.' },
+    { q: 'תיקי עובד ציבור / סגל רפואי - מי מטפל?', a: 'אישור <strong>ר\' יחידת תביעות / פרקליט</strong>.' }
+  ]}
+];
+</script>
+<script>
+const EVENTS = [
+  { id: 'almab', name: 'אלמ"ב (אלימות במשפחה)', icon: '🚨', classification: 'פ.א', severity: 'critical',
+    description: 'תקיפה / איומים / הטרדה במשפחה הקרובה - בן/בת זוג, ילדים, הורים',
+    classifications: [
+      { type: 'pill-class', text: 'סיווג: פ.א (עם עבירה) או אלמ"ב כללי (ללא עבירה)' },
+      { type: 'pill-danger', text: 'דדליין: חקירת חשוד תוך 7 ימים' },
+      { type: 'pill-warning', text: 'ביקורת קצין אלמ"ב כל שבועיים' }
+    ],
+    immediate: [
+      { title: 'ודא שהמתלוננת בטוחה', detail: 'בדוק אם החשוד באזור. אם כן - מעצר מיידי. הפנייה לטיפול רפואי אם יש חבלות.' },
+      { title: 'תיעוד פיזי של החבלות', detail: 'צילום כל חבלה. בקש סיכום רפואי מהאשפוז/חדר מיון. תפוס לתיק.' },
+      { title: 'גביית עדות מפורטת', detail: 'תיאור האירוע, היסטוריה של אלימות, האם יש ילדים בבית, האם יש נשק.' }
+    ],
+    investigation: [
+      { title: 'מילוי טופס הערכת מסוכנות', detail: 'חובה! הערכת רמת הסיכון לאישה. רמת סיכון גבוהה - מעצר חשוד + מקלט.' },
+      { title: 'מילוי מודל מאויימת', detail: 'תכנון הגנה - אנשי קשר, כתובות סודיות, סימני אזהרה.' },
+      { title: 'איתור החשוד וחקירתו תוך 7 ימים', detail: 'אם לא נמצא - הכרזה כמבוקש. החקירה תחת אזהרה.' },
+      { title: 'הוצאת רישום פלילי על החשוד', detail: 'בדוק תלונות קודמות באלמ"ב. רישום חוזר = מסוכנות גבוהה יותר.' },
+      { title: 'יידוע על צו הגנה ומקלט', detail: 'הסבר למתלוננת על זכויותיה. צו הגנה במעמד צד אחד = 7 ימים. הארכה במעמד שני = עד שנה.' },
+      { title: 'דיווח לרווחה אם יש ילדים מתחת ל-14', detail: 'חובת דיווח על פי חוק. גם לקהילה/ועד הורים אם רלוונטי.' },
+      { title: 'בדיקה ותפיסת נשק', detail: 'אם לחשוד יש נשק (אזרחי או צבאי) - תפוס. גם אם לא הוצא - הסיכון נשאר.' }
+    ],
+    forms: ['טופס הערכת מסוכנות', 'מודל מאויימת', 'טופס סביבת אלמ"ב בפלא"א'],
+    tips: [
+      { type: 'danger', title: '⚠ אסור!', text: 'אסור לבטל תלונה בשטח! גם אם המתלוננת אומרת "סתם אמרתי", חוקרים את החשוד.' },
+      { type: 'warning', title: '🎯 שיקול דעת על מעצר', text: 'לא בכל תיק אלמ"ב עוצרים את החשוד. שקול: חוזק ראיות, חלופת מעצר, רמת מסוכנות.' },
+      { type: 'info', title: '⏱ צו הגנה - דגשים', text: '7 ימים במעמד צד אחד, אח"כ הארכה במעמד שני הצדדים. עד שנה מקסימום. הפרה = מעצר ללא חלופה!' },
+      { type: 'success', title: '✓ סגירת תיק אלמ"ב', text: 'רמ"ח רשאי לסגור רק עוונות. עבירות פשע יועברו עם המלצה לפרקליטות. עילות: נל"מ, חוסר ראיות, העדר אשמה.' }
+    ]
+  },
+  { id: 'death_scene', name: 'זירת מקרה מוות', icon: '⚰️', classification: 'תמ"מ', severity: 'critical',
+    description: 'אדם נמצא ללא רוח חיים - מוות טבעי, תאונה, התאבדות, או חשד לפלילי',
+    classifications: [
+      { type: 'pill-class', text: 'סיווג: תמ"מ (תיק מקרה מוות)' },
+      { type: 'pill-danger', text: 'אם חשד לפלילי - פ.א' },
+      { type: 'pill-warning', text: 'אם הגופה לא מזוהה - אלמוני' }
+    ],
+    immediate: [
+      { title: 'בדיקה ראשונית של הזירה', detail: 'סימני פריצה? סימני אלימות? סימני שקיעת דם תקינים? קבל קצין תורן ומז"פ אם יש חשד.' },
+      { title: 'הקפא את הזירה אם יש חשד לפלילי', detail: 'אל תיגע בגופה ובחפצים. הזמן מז"פ. חוקרי זירה יבצעו תיעוד מלא.' },
+      { title: 'קבלת תעודת פטירה ממד"א', detail: 'חובה - בלי תעודה אין המשך הליך.' }
+    ],
+    investigation: [
+      { title: 'דווח לרל"ח וקבל אישור', detail: 'חובה! הרל"ח מאשר את ההליך. ללא אישורו - אין ויתור על נתיחה.' },
+      { title: 'בדיקה חיצונית של הגופה', detail: 'סימני חבלה, פציעה, שקיעת דם, סימני מאבק, ציפורניים. צילום מלא.' },
+      { title: 'זיהוי הנפטר', detail: 'באמצעות בני משפחה / ת"ז / טביעות אצבע. בלי זיהוי - סיווג אלמוני.' },
+      { title: 'גביית עדויות מבני משפחה ועדים', detail: 'מי גילה? מה היה לפני? היסטוריה רפואית? סכסוכים? ירושה?' },
+      { title: 'החלטה על נתיחה - היררכיית הסכמה', detail: 'בן/בת זוג ← ילדים ← הורים ← אחים. הראשון בהיררכיה שזמין הוא הקובע.' },
+      { title: 'אם אין הסכמה ויש חשד - בקשת חס"מ', detail: 'פנייה לבית משפט שלום. השופט הופך לשופט חוקר ומחליט על נתיחה.' },
+      { title: 'מילוי טפסים מתאימים', detail: 'ויתור על נתיחה (אם אין חשד) או הסכמה לנתיחה. דוח קצין ביקור בזירה.' },
+      { title: 'תיעוד מלא של הזירה', detail: 'צילומים, סרטוט זירה, רשימת חפצים, מסמכים רפואיים של הנפטר.' }
+    ],
+    forms: ['טופס ויתור על נתיחה', 'טופס הסכמה לנתיחה', 'דוח קצין ביקור בזירה', 'מזכר אישור רל"ח'],
+    tips: [
+      { type: 'purple', title: '👨‍⚖️ סעיף 19 לחוק חקירת סיבת מוות', text: 'מי רשאי לבקש חקירה: קצין משטרה, יועמ"ש, רופא, או בן משפחה (גם רחוקים - אחים).' },
+      { type: 'danger', title: '⚠ מתי חובה חס"מ?', text: '1) חשש סביר שהמוות לא טבעי. 2) מוות בעקבות עבירה. 3) מוות במעצר/אישפוז במוסד סגור.' },
+      { type: 'info', title: '🏛 העברה למכון לרפואה משפטית', text: 'רק כאשר יש צורך חקירתי בבדיקת הגופה. אם אין - מאשרים קבורה למשפחה.' },
+      { type: 'warning', title: '⚠ ילד שמת ברכב', text: 'אירוע מורכב - טיפול מלא: איסוף ראיות, חקירת ההורים באזהרה (באישור פרקליטות).' },
+      { type: 'success', title: '✓ סיווג בהתאם לראיות', text: 'בהתחלה תמ"מ. אם ראיות מעידות על פלילי - פותחים תיק חדש פ.א. תמיד שני תיקים נפרדים.' }
+    ]
+  },
+  { id: 'sexual', name: 'עבירת מין', icon: '⚖️', classification: 'פ.א', severity: 'critical',
+    description: 'אונס, מעשה מגונה, הטרדה מינית - חמורה במיוחד עם קטינים',
+    classifications: [
+      { type: 'pill-class', text: 'סיווג: פ.א' },
+      { type: 'pill-danger', text: 'חוקרת מוסמכת בלבד!' },
+      { type: 'pill-warning', text: 'דדליין: 6 חודשים מקס\' לערר' }
+    ],
+    immediate: [
+      { title: 'הפנייה דחופה לחוקרת מוסמכת', detail: 'אסור לחוקר רגיל לגבות עדות. חובה חוקרת מוסמכת לעבירות מין. בקטין - חוקרת ילדים.' },
+      { title: 'הפנייה דחופה לבדיקה רפואית', detail: 'בית חולים עם מרכז סיוע. איסוף ראיות ביולוגיות (DNA) קריטי בשעות הראשונות.' },
+      { title: 'יצירת קשר עם מרכז סיוע', detail: 'תמיכה נפשית ומשפטית מיידית למתלוננת.' }
+    ],
+    investigation: [
+      { title: 'גביית עדות ע"י חוקרת מוסמכת', detail: 'במקום שקט, ללא לחץ, עם תמיכה. תיעוד מלא של הסיפור.' },
+      { title: 'איסוף ראיות ביולוגיות', detail: 'DNA, ט.א, סימני התנגדות. שמירה תחת שרשרת מוצג קפדנית.' },
+      { title: 'תיעוד צילומי של חבלות', detail: 'מתועד ע"י צוות רפואי או חוקרת. תיעוד תאריך/שעה לכל תמונה.' },
+      { title: 'מילוי מודל מאויימת', detail: 'הגנה ותמיכה מתמשכת למתלוננת.' },
+      { title: 'איתור עדי ראייה', detail: 'מי היה במקום? בדיקת מצלמות. מי שמע צעקות? תחקור.' },
+      { title: 'חקירת חשוד תחת אזהרה', detail: 'באישור פרקליטות מחוז במקרים רגישים. שמירה על זכויותיו.' },
+      { title: 'הפנייה לטיפול נפשי / מרכז סיוע', detail: 'חובה - המשך תמיכה במתלוננת לאורך כל ההליך.' }
+    ],
+    forms: ['מודל מאויימת', 'דוח חוקרת מוסמכת', 'טופס איסוף ראיות ביולוגיות', 'טופס מסירת ראיות למז"פ'],
+    tips: [
+      { type: 'danger', title: '⚠ חוקרת מוסמכת חובה!', text: 'אסור בתכלית האיסור לחוקר זכר/חוקרת לא מוסמכת לגבות עדות. גם ראשונית.' },
+      { type: 'warning', title: '⏰ 6 חודשים לערר', text: 'עבירות מין מסוג פשע: החלטה תוך 6 חודשים מהגשת הערר. העבר תיקים אלה לפרקליטות במהירות.' },
+      { type: 'purple', title: '👧 קטינים - חוקרת ילדים', text: 'תחת גיל 14 בעבירת מין - חוקרת ילדים בלבד. תיק מסוג ט (טיפול) אם הקטין הוא העבריין.' },
+      { type: 'info', title: '🔬 ראיות ביולוגיות - דחיפות', text: 'בשעות הראשונות אחרי האירוע. הפצרה במתלוננת לא לרחוץ/להחליף בגדים.' }
+    ]
+  },
+  { id: 'burglary', name: 'התפרצות / פריצה', icon: '🔨', classification: 'פ.א', severity: 'normal',
+    description: 'התפרצות לדירה/חנות/מתחם - עם או בלי גניבה',
+    classifications: [
+      { type: 'pill-class', text: 'סיווג: פ.א' },
+      { type: 'pill-success', text: 'אם נתפס חשוד - מעצר 24 שעות' }
+    ],
+    immediate: [
+      { title: 'הזמנת טכנאי מז"פ', detail: 'בדיקת ט.א (טביעות אצבע), עקבות נעל, DNA. תיעוד הזירה.' },
+      { title: 'גביית עדות מבעל הבית/החנות', detail: 'מה נגנב? מתי האחרון שהיה במקום? סימני פריצה?' },
+      { title: 'תיעוד נזק לזירה', detail: 'דלת פרוצה, חלון שבור, כספת. צילום מקיף.' }
+    ],
+    investigation: [
+      { title: 'מילוי טופס פירוט רכוש שנגנב', detail: 'לטובת ביטוח של המתלונן ולמעקב אחר הרכוש.' },
+      { title: 'תחקור שכנים', detail: 'מי ראה? מי שמע? תנועה חשודה?' },
+      { title: 'בדיקת מצלמות אבטחה באזור', detail: 'מצלמות פרטיות, עירוניות. עד 72 שעות בד"כ נשמר.' },
+      { title: 'בדיקת דוחות תנועה ובדוקאים בשעת ההתפרצות', detail: 'מי בדק? מה ראה? עין הנץ - רכבים שעברו באזור.' },
+      { title: 'הפנייה למודיעין', detail: 'אופן הפעולה דומה לעברייני התפרצויות מוכרים?' },
+      { title: 'בדיקה בשוק שחור', detail: 'מי קונה מוצרים גנובים באזור? מעקב.' }
+    ],
+    forms: ['טופס פירוט רכוש גנוב', 'דוח מז"פ', 'דוח חיפוש (אם נעשה)'],
+    tips: [
+      { type: 'info', title: '📸 מצלמות - מהר!', text: 'בקש מצלמות מיד. הקלטות נמחקות אחרי 7-14 יום בד"כ. עבוד בזמן אמת.' },
+      { type: 'success', title: '✓ קישור לתיקים אחרים', text: 'התפרצות באותו אופן פעולה במספר מקומות? אותה כנופייה. תזכור לאיגוד תיקים.' },
+      { type: 'warning', title: '⚠ סיווג חדש אם משתנה', text: 'אם בהתחלה רק נזק - ש.כ. אם מתברר שגונבו דברים - פ.א. סיווג מותאם לראיות.' }
+    ]
+  },
+  { id: 'assault', name: 'תקיפה (לא במשפחה)', icon: '👊', classification: 'פ.א', severity: 'normal',
+    description: 'תקיפה בין שכנים, ברחוב, במקום ציבורי - לא במסגרת המשפחה',
+    classifications: [
+      { type: 'pill-class', text: 'סיווג: פ.א' },
+      { type: 'pill-warning', text: 'תקיפת שוטר - דגש מיוחד מהפיקוד' }
+    ],
+    immediate: [
+      { title: 'הפניה לטיפול רפואי', detail: 'גם אם חבלות קלות - תפוס סיכום רפואי כראיה.' },
+      { title: 'גביית עדות מפורטת מהמתלונן', detail: 'תיאור התקיפה, זיהוי התוקף, רקע לסכסוך, עדי ראייה.' },
+      { title: 'תיעוד צילומי של חבלות', detail: 'תוך 24 שעות - חבלות מתחילות להחלים.' }
+    ],
+    investigation: [
+      { title: 'איתור עדי ראייה וגביית עדויות', detail: 'במקום ציבורי - הרבה עדים פוטנציאליים.' },
+      { title: 'בדיקת מצלמות באזור האירוע', detail: 'מצלמות חנויות, עירוניות, רכבים.' },
+      { title: 'איתור וחקירת החשוד', detail: 'תחת אזהרה. בדיקת רישום פלילי קודם.' },
+      { title: 'בדיקה אם יש סכסוך מתמשך', detail: 'שכנים? עבירות חוזרות - גישור / טיפול שונה.' }
+    ],
+    forms: ['טופס סיכום רפואי', 'דוח עדות', 'דוח חיפוש (אם נעשה)'],
+    tips: [
+      { type: 'warning', title: '🤝 סכסוך מתמשך = גישור', text: 'אם מדובר בסכסוך שכנים שגורם לעומס בתחנה - שקול הפניה לגישור פלילי.' },
+      { type: 'info', title: '👮 תקיפת שוטר', text: 'עבירת פשע - תיק תביעות עם דגש פיקוד. רושמים לפי סעיף 273 לחוק העונשין.' }
+    ]
+  },
+  { id: 'missing', name: 'נעדר', icon: '❓', classification: 'א.נ', severity: 'high',
+    description: 'אדם שלא חוזר הביתה, לא יוצר קשר, נעלם בנסיבות חשודות',
+    classifications: [
+      { type: 'pill-class', text: 'סיווג: א.נ (איכון נעדר)' },
+      { type: 'pill-danger', text: 'אם נמצא מת - תיק חדש תמ"מ' },
+      { type: 'pill-warning', text: 'קטין - דחיפות מיוחדת' }
+    ],
+    immediate: [
+      { title: 'תחקיר משפחה מקיף', detail: 'שגרה רגילה, מצב נפשי, סכסוכים, בעיות כלכליות, חברים אחרונים.' },
+      { title: 'איכון פלאפון', detail: 'מיקום אחרון, שיחות אחרונות.' },
+      { title: 'הוצאת הכרזת נעדר', detail: 'במערכת פלא"א - נעדר. הכרזה ארצית.' }
+    ],
+    investigation: [
+      { title: 'בדיקת מצלמות באזור היעלמות', detail: 'הבית, העבודה, אזורים שהיה רגיל ללכת אליהם.' },
+      { title: 'בדיקה במערכות בתי חולים, מד"א, ושב"ס', detail: 'אולי אושפז? נעצר? פגיעה בתאונה?' },
+      { title: 'תיאום עם מודיעין', detail: 'הופעות באזורים מסוימים, אנשים שאיתם נמצא בקשר.' },
+      { title: 'בדיקת חשבון בנק וכרטיסי אשראי', detail: 'בקשה מבני משפחה לעדכון על שימוש אחרון.' }
+    ],
+    forms: ['הכרזת נעדר בפלא"א', 'דוח תחקיר משפחה'],
+    tips: [
+      { type: 'danger', title: '⚠ קטין נעדר = דחיפות עליונה', text: 'הפעלת פרוטוקול מיוחד. גיוס משאבים. עירוב מודיעין.' },
+      { type: 'warning', title: '🧠 בריאות נפשית', text: 'אם הנעדר עם בעיות נפשיות / נטילת תרופות - עדכן את מד"א ובתי החולים.' },
+      { type: 'success', title: '✓ נמצא בחיים - סגירה', text: 'גם אם נמצא וטוען שרצה להיעלם - וודא שזה רצונו החופשי. סוגרים את התיק.' },
+      { type: 'info', title: '⚰️ נמצא מת', text: 'אל תסגור את תיק הא.נ! פתח תיק חדש תמ"מ (מקרה מוות) ועבד את שניהם.' }
+    ]
+  },
+  { id: 'drugs', name: 'סמים', icon: '💊', classification: 'פ.א', severity: 'normal',
+    description: 'תפיסת סמים, חזקה לצריכה עצמית, סחר',
+    classifications: [
+      { type: 'pill-class', text: 'סיווג: פ.א או ל.א (לקראת החלטה)' },
+      { type: 'pill-warning', text: 'חייל סדיר - מצ"ח!' },
+      { type: 'pill-success', text: 'קטין - ט.מ או ט' }
+    ],
+    immediate: [
+      { title: 'תפיסת הסמים ושליחה למעבדה', detail: 'תיעוד מדויק של כמות, סוג, מקום תפיסה. שרשרת מוצג קפדנית.' },
+      { title: 'חיפוש בגוף החשוד', detail: 'באישור קצין ממונה. תיעוד מלא.' },
+      { title: 'חקירת חשוד תחת אזהרה', detail: 'מקור הסם, שימוש עצמי או סחר.' }
+    ],
+    investigation: [
+      { title: 'בדיקת רישום פלילי קודם', detail: 'עבירת ראשונה - טיפול מותנה אפשרי. חזרה - תיק רגיל.' },
+      { title: 'בדיקה האם חייל בשירות סדיר', detail: 'אם כן - מצ"ח מקבל את התיק! אסור לטפל אצלנו.' },
+      { title: 'מעקב אחר רשת אספקה', detail: 'מי המוכר? היכן? מתי? תפעיל מודיעין.' }
+    ],
+    forms: ['דוח תפיסת סם', 'דוח חיפוש', 'דוח שליחה למעבדה'],
+    tips: [
+      { type: 'danger', title: '⚠ חייל סדיר = מצ"ח', text: 'כל מקרה של חייל בשירות סדיר עם סמים - העברה למצ"ח! לא חוקרים אצלנו.' },
+      { type: 'purple', title: '👶 קטין = ט.מ', text: 'קטין שנתפס עם סמים בפעם הראשונה - ט.מ (טיפול מותנה). חזרה - ט רגיל.' },
+      { type: 'info', title: '⚖️ שימוש עצמי', text: 'תיק ל.א (ללא אישום זמני) עד החלטה. אפשר טיפול מותנה במקום העמדה לדין.' },
+      { type: 'warning', title: '🔬 חוות דעת מומחה', text: 'הסם חייב להישלח למעבדה לאישור סוג וכמות. בלי חו"ד אין הוכחת עבירה.' }
+    ]
+  },
+  { id: 'youth', name: 'עבירת נוער', icon: '👦', classification: 'ט / ט.מ', severity: 'normal',
+    description: 'קטין שביצע עבירה - תחת גיל 18',
+    classifications: [
+      { type: 'pill-class', text: 'סיווג: ט (טיפול) או ט.מ (טיפול מותנה)' },
+      { type: 'pill-warning', text: 'חוקר נוער חובה!' }
+    ],
+    immediate: [
+      { title: 'יצירת קשר עם הורי הקטין', detail: 'חובה - אין לחקור קטין ללא נוכחות הורה או דמות הורית.' },
+      { title: 'תיאום עם חוקר נוער', detail: 'חוקר ילדים מוסמך בלבד. לא חוקר רגיל.' },
+      { title: 'הערכה ראשונית - גיל ועברו', detail: 'מתחת ל-12 - אינו בר עונשין. ראשונה - ט.מ אפשרי.' }
+    ],
+    investigation: [
+      { title: 'גביית עדות בנוכחות הורה', detail: 'בסביבה בטוחה, ללא לחץ. תיעוד מלא.' },
+      { title: 'תיאום עם שירותי הרווחה', detail: 'יש מעורבות קודמת? בעיות בבית? צריך התערבות?' },
+      { title: 'הערכה לטיפול מותנה', detail: 'אם עבירה ראשונה - שקול ט.מ במקום הליך פלילי מלא.' }
+    ],
+    forms: ['דוח חוקר נוער', 'דוח רווחה', 'הסכמה הורית'],
+    tips: [
+      { type: 'danger', title: '⚠ מתחת לגיל 12', text: 'אינו בר עונשין. סיווג ט. אין הליך פלילי - רק הפניה לרווחה וטיפול.' },
+      { type: 'warning', title: '⚖️ ט.מ - תנאי', text: 'טיפול מותנה: הקטין משתף פעולה עם תוכנית טיפול. כישלון - הליך פלילי רגיל.' },
+      { type: 'info', title: '👨‍👩‍👦 הורה כן/לא', text: 'אם ההורה הוא העבריין - דמות הורית חליפית (סבא, דוד, רווחה).' }
+    ]
+  },
+  { id: 'work_accident', name: 'תאונת עבודה', icon: '🏗️', classification: 'ת.ע', severity: 'normal',
+    description: 'תאונה במקום עבודה - עובד נפגע / נהרג',
+    classifications: [
+      { type: 'pill-class', text: 'סיווג: ת.ע (תאונת עבודה)' },
+      { type: 'pill-danger', text: 'חשד לרשלנות פלילית - פ.א' }
+    ],
+    immediate: [
+      { title: 'בדיקה אם יש חשד לפלילי', detail: 'רשלנות, הזנחת בטיחות, מעשה מכוון? אם כן - פ.א.' },
+      { title: 'תיעוד מקום האירוע', detail: 'צילום, סרטוט, שמירת מצב. במיוחד אם יש פגיעה חמורה.' },
+      { title: 'גביית עדויות מעובדים ומעסיק', detail: 'מה קרה? מה היה לפני? היה בטיחות?' }
+    ],
+    investigation: [
+      { title: 'בדיקת רישומי בטיחות', detail: 'הדרכות בטיחות, ציוד מגן, אישורי בטיחות.' },
+      { title: 'דיווח למשרד העבודה', detail: 'מפקח בטיחות יבוא לבדוק.' },
+      { title: 'אם פגיעה חמורה - תיעוד רפואי', detail: 'דוח רפואי, חוות דעת מומחה.' }
+    ],
+    forms: ['דוח תאונת עבודה', 'דוח קצין ביקור בזירה'],
+    tips: [
+      { type: 'warning', title: '⚠ הסבה לפ.א', text: 'אם מתברר שיש רשלנות (אי הדרכה, ציוד מקולקל) - שינוי סיווג לפ.א.' },
+      { type: 'info', title: '🏥 מות העובד = תמ"מ', text: 'אם העובד נהרג - פותחים תיק תמ"מ נוסף, בנוסף לת.ע.' }
+    ]
+  },
+  { id: 'fire', name: 'שריפה', icon: '🔥', classification: 'ש.כ / פ.א', severity: 'normal',
+    description: 'שריפה ברכב/בית/עסק - יכולה להיות תאונתית או הצתה',
+    classifications: [
+      { type: 'pill-class', text: 'התחלה: ש.כ (שריפות כללי)' },
+      { type: 'pill-danger', text: 'חשד להצתה - פ.א' }
+    ],
+    immediate: [
+      { title: 'תיעוד מקום השריפה', detail: 'צילום נזק, תיעוד מצב הזירה אחרי הכיבוי.' },
+      { title: 'חבירה לכבאות', detail: 'דוח חוקר שריפות. חשד להצתה?' },
+      { title: 'גביית עדויות', detail: 'מי גילה? מי ראה? סכסוכים?' }
+    ],
+    investigation: [
+      { title: 'בדיקת חומר שריפות מהכבאות', detail: 'חוות דעת מקצועית - הצתה או תאונה?' },
+      { title: 'בדיקת מצלמות באזור', detail: 'מי היה? מי הציץ? תנועה חשודה.' },
+      { title: 'אם הצתה - חקירת חשודים', detail: 'מי מוטב? מי בסכסוך? ביטוח?' }
+    ],
+    forms: ['דוח חוקר שריפות', 'דוח קצין ביקור בזירה'],
+    tips: [
+      { type: 'warning', title: '⚠ סיווג מתחלף', text: 'שריפה - בהתחלה ש.כ. אם מתברר שזו הצתה - פ.א. שני תיקים נפרדים.' },
+      { type: 'info', title: '💰 הצתה לביטוח', text: 'בעל הרכוש הצית בעצמו לקבל ביטוח? עבירה חמורה - מרמה + הצתה.' }
+    ]
+  },
+  { id: 'attorney', name: 'חקירת עו"ד', icon: '⚖️', classification: 'תלוי', severity: 'critical',
+    description: 'נדרשת חקירה / חיפוש / מעצר של עורך דין - הליך מיוחד',
+    classifications: [
+      { type: 'pill-danger', text: 'אישורים מיוחדים חובה!' },
+      { type: 'pill-warning', text: 'פקודת מטא"ר 14.01.13' }
+    ],
+    immediate: [
+      { title: 'אל תפעל עצמאית!', detail: 'חקירת עו"ד דורשת אישורים מיוחדים. הקפא ופנה לדרג מעלך.' },
+      { title: 'בדוק האם הקשור לשירות לקוח', detail: 'עניין שאינו קשור ללקוח - אישור ק\' אח"מ מרחבי. קשור ללקוח - ק\' אח"מ מחוזי + פרקליטות.' }
+    ],
+    investigation: [
+      { title: 'חקירת עו"ד כעד - לא קשור ללקוח', detail: 'אישור ק\' אח"מ מרחבי. ביחידה ארצית - ראש היחידה + הודעה לראש להב 433.' },
+      { title: 'חקירת עו"ד כעד - קשור ללקוח', detail: 'אישור ק\' אח"מ מחוזי בכיר. תנאים: אין דרך אחרת + טובת החקירה גוברת על חיסיון לקוח-עו"ד.' },
+      { title: 'חקירת עו"ד כחשוד - קשור ללקוח', detail: 'אישור פרקליט מחוז דרך גורם מאשר בכיר.' },
+      { title: 'חיפוש אצל עו"ד', detail: 'אישור מפקד מחוז או ראש אח"מ. הודעה ליו"ר הוועד המחוזי של לשכת עוה"ד.' },
+      { title: 'מעצר עו"ד', detail: 'אישור מפקד מחוז או ראש אח"מ.' }
+    ],
+    forms: ['בקשת אישור חקירה', 'תיעוד אישורים', 'הודעה ליו"ר ועד מחוזי'],
+    tips: [
+      { type: 'danger', title: '🛑 אישור לפני הכל!', text: 'בלי אישור - אסור לחקור/לעצור/לחפש עו"ד. גם אם הוא בעצור ניסה לתקוף שוטר.' },
+      { type: 'purple', title: '🤐 כיבוד חיסיון', text: 'דברים שעו"ד אומר שלקוחו אמר לו - חסויים. אסור לדחוף שיפר חיסיון.' },
+      { type: 'info', title: '📞 פנייה לוועדת אתיקה', text: 'העו"ד הנחקר יכול לבקש להתייעץ עם נציג ועדת אתיקה - חייבים לאפשר אם לא פוגע ממשית בחקירה.' },
+      { type: 'warning', title: '📦 מוצגים חסויים', text: 'בחיפוש - אם נתפס חומר שעו"ד טוען לחיסיון, נכנס למעטפה סגורה עד הכרעת בימ"ש.' }
+    ]
+  },
+  { id: 'closure', name: 'סגירת תיק / גניזה', icon: '📕', classification: 'תלוי', severity: 'normal',
+    description: 'החלטה לסגור או לגנוז תיק חקירה - יש כללים ברורים',
+    classifications: [
+      { type: 'pill-class', text: 'הליך מנהלי - לא תיק חדש' }
+    ],
+    immediate: [
+      { title: 'בדוק שיש לך סמכות לסגור', detail: 'רמ"ח/ק\' אלמ"ב - רק עוונות. פשע - פרקליטות. מות נאשם בפשע - פרקליט מחוז.' },
+      { title: 'בחר עילת סגירה מתאימה', detail: '6 עילות עיקריות - תבחר את המתאימה.' }
+    ],
+    investigation: [
+      { title: 'נל"מ - נסיבות העניין אינן מצדיקות', detail: 'יש ראיות אבל אין עניין ציבורי בהעמדה לדין. עבירה קלה + נסיבות מיוחדות.' },
+      { title: 'חוסר ראיות מספיקות', detail: 'יש ראיה לכאורה אבל לא מספיקה להוכחה. סגירה לא חוסמת עתידית.' },
+      { title: 'העדר אשמה', detail: 'התברר שאין עבירה כלל. סגירה כללית - לא נשאר רישום פלילי.' },
+      { title: 'עבריין לא נודע (על"ן)', detail: 'לא ידועה זהות החשוד. השהיית חקירה - אפשר לפתוח שוב אם יהיו ראיות.' },
+      { title: 'התיישנות', detail: 'עבר זמן שעדיין אפשר להעמיד לדין.' },
+      { title: 'מות החשוד', detail: 'בעבירת פשע - אישור פרקליט מחוז. בעוונות - רמ"ח מספיק.' }
+    ],
+    forms: ['החלטת סגירה בפלא"א', 'הודעה למתלונן (חובה)'],
+    tips: [
+      { type: 'danger', title: '⚠ הודעה למתלונן', text: 'חובה ע"פ סעיף 63 לחסד"פ! המתלונן יכול לערור תוך 30 יום.' },
+      { type: 'warning', title: '⏱ דדליין ערר', text: '30 יום למתלונן. עבירות מין/אלימות פשע: 6 חודשים מקס\' להחלטה על הערר.' },
+      { type: 'info', title: '📋 הליך הערר', text: 'מועבר לק\' מאשר בכיר. אם החליט להמליץ לדחות, מועבר לפרקליטות המדינה (מנהל תחום עררים).' },
+      { type: 'success', title: '✓ אופציה: חידוש חקירה', text: 'הקצין המאשר יכול להחליט לפתוח חקירה מחדש. אז התיק חוזר אליך, אין צורך בפרקליטות.' }
+    ]
+  }
+];
+</script>
+<script>
+function saveChecklist() { localStorage.setItem('checklist', JSON.stringify(state.checklistState)); }
+function saveStation() { localStorage.setItem('station', state.station); }
+
+function escapeHtml(text) {
+  if (text == null) return '';
+  return String(text).replace(/[&<>"']/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
+}
+
+function getGreeting() {
+  const h = new Date().getHours();
+  if (h < 12) return 'בוקר טוב';
+  if (h < 17) return 'צהריים טובים';
+  if (h < 21) return 'ערב טוב';
+  return 'לילה טוב';
+}
+
+function showToast(msg) {
+  const existing = document.querySelector('.floating-tip');
+  if (existing) existing.remove();
+  const t = document.createElement('div');
+  t.className = 'floating-tip';
+  t.textContent = msg;
+  document.body.appendChild(t);
+  setTimeout(() => t.remove(), 2500);
+}
+
+function navigate(screen) {
+  state.screen = screen;
+  state.currentEvent = null;
+  document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
+  document.getElementById('screen-' + screen)?.classList.add('active');
+  document.querySelectorAll('.tab-btn').forEach(t => {
+    t.classList.toggle('active', t.dataset.target === screen);
+  });
+  window.scrollTo(0, 0);
+  render();
+}
+
+function openEvent(eventId) {
+  state.currentEvent = eventId;
+  state.screen = 'events';
+  document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
+  document.getElementById('screen-events').classList.add('active');
+  document.querySelectorAll('.tab-btn').forEach(t => {
+    t.classList.toggle('active', t.dataset.target === 'events');
+  });
+  window.scrollTo(0, 0);
+  renderEvents();
+}
+
+function render() {
+  const station = STATIONS[state.station];
+  document.getElementById('station-pill').textContent = `תחנת ${station.name} 📍`;
+  switch (state.screen) {
+    case 'morning': renderMorning(); break;
+    case 'events': renderEvents(); break;
+    case 'classifications': renderClassifications(); break;
+    case 'tips': renderTips(); break;
+    case 'profile': renderProfile(); break;
+  }
+}
+
+function renderMorning() {
+  const totalItems = MORNING_CHECKLIST.reduce((sum, g) => sum + g.items.length, 0);
+  const doneItems = Object.keys(state.checklistState).filter(k => state.checklistState[k]).length;
+  const percentage = totalItems ? Math.round(doneItems / totalItems * 100) : 0;
+  const station = STATIONS[state.station];
+
+  const html = `
+    <div class="morning-hero">
+      <div class="morning-hero-greeting">${getGreeting()}, רב'</div>
+      <div class="morning-hero-title">צ׳קליסט פתיחת יום</div>
+      <div class="morning-hero-sub">תחנת ${station.name} · ${new Date().toLocaleDateString('he-IL', { weekday: 'long', day: 'numeric', month: 'long' })}</div>
+      <div class="morning-progress"><div class="morning-progress-fill" style="width: ${percentage}%"></div></div>
+      <div class="morning-progress-text">${doneItems} / ${totalItems} הושלמו (${percentage}%)</div>
+    </div>
+    ${MORNING_CHECKLIST.map(group => {
+      const groupDone = group.items.filter(i => state.checklistState[i.id]).length;
+      const groupTotal = group.items.length;
+      const allDone = groupDone === groupTotal;
+      return `
+        <div class="checklist-group">
+          <div class="checklist-group-header">
+            <div class="checklist-group-title-wrap">
+              <span class="checklist-group-icon">${group.icon}</span>
+              <span class="checklist-group-title">${escapeHtml(group.title)}</span>
+            </div>
+            <div class="checklist-group-progress ${allDone ? 'done' : ''}">${groupDone}/${groupTotal}</div>
+          </div>
+          ${group.items.map(item => `
+            <div class="checklist-item ${state.checklistState[item.id] ? 'done' : ''}" onclick="toggleItem('${item.id}')">
+              <div class="check-box"></div>
+              <div class="checklist-item-text">
+                ${escapeHtml(item.text)}
+                ${item.detail ? `<div class="checklist-item-detail">${escapeHtml(item.detail)}</div>` : ''}
+              </div>
+            </div>
+          `).join('')}
+        </div>
+      `;
+    }).join('')}
+    <button class="reset-btn" onclick="resetChecklist()">↻ אפס צ׳קליסט (התחלת יום חדש)</button>
+  `;
+  document.getElementById('screen-morning').innerHTML = html;
+}
+
+function toggleItem(id) {
+  state.checklistState[id] = !state.checklistState[id];
+  saveChecklist();
+  renderMorning();
+}
+
+function resetChecklist() {
+  if (confirm('לאפס את כל הצ׳קליסט?')) {
+    state.checklistState = {};
+    saveChecklist();
+    renderMorning();
+    showToast('הצ׳קליסט אופס - יום חדש!');
+  }
+}
+
+function renderEvents() {
+  if (state.currentEvent) { renderEventDetail(); return; }
+  document.getElementById('screen-events').innerHTML = `
+    <div class="page-header">
+      <div class="page-title">מה לעשות?</div>
+      <div class="page-sub">בחר סוג אירוע - תקבל את שרשרת ההנחיות, סיווג, וטיפים</div>
+    </div>
+    <div class="search-box">
+      <span>🔍</span>
+      <input type="text" placeholder="חפש סוג אירוע..." oninput="filterEvents(this.value)" id="event-search" />
+    </div>
+    <div class="event-grid" id="event-grid">
+      ${EVENTS.map(e => `
+        <div class="event-tile" onclick="openEvent('${e.id}')">
+          <span class="event-tile-icon">${e.icon}</span>
+          <div class="event-tile-name">${escapeHtml(e.name)}</div>
+          <div class="event-tile-class ${e.severity === 'critical' ? 'critical' : ''}">${escapeHtml(e.classification)}</div>
+        </div>
+      `).join('')}
+    </div>
+  `;
+}
+
+function filterEvents(query) {
+  const q = query.trim().toLowerCase();
+  const grid = document.getElementById('event-grid');
+  const filtered = EVENTS.filter(e =>
+    !q || e.name.toLowerCase().includes(q) || e.description.toLowerCase().includes(q) || e.classification.toLowerCase().includes(q)
+  );
+  if (filtered.length === 0) {
+    grid.innerHTML = `<div class="empty" style="grid-column: 1 / -1;"><div class="empty-icon">🤷</div><div>לא נמצא אירוע תואם</div></div>`;
+  } else {
+    grid.innerHTML = filtered.map(e => `
+      <div class="event-tile" onclick="openEvent('${e.id}')">
+        <span class="event-tile-icon">${e.icon}</span>
+        <div class="event-tile-name">${escapeHtml(e.name)}</div>
+        <div class="event-tile-class ${e.severity === 'critical' ? 'critical' : ''}">${escapeHtml(e.classification)}</div>
+      </div>
+    `).join('');
+  }
+}
+
+function renderEventDetail() {
+  const event = EVENTS.find(e => e.id === state.currentEvent);
+  if (!event) { state.currentEvent = null; renderEvents(); return; }
+  document.getElementById('screen-events').innerHTML = `
+    <button class="back-btn" onclick="closeEvent()">← חזרה לרשימת אירועים</button>
+    <div class="event-detail-header">
+      <div class="event-detail-icon-row">
+        <span class="event-detail-icon">${event.icon}</span>
+        <div><div class="event-detail-title">${escapeHtml(event.name)}</div></div>
+      </div>
+      <div style="color: var(--text-2); font-size: 14px; margin-top: 4px;">${escapeHtml(event.description)}</div>
+      <div class="event-detail-classifications">
+        ${event.classifications.map(c => `<span class="pill ${c.type}">${escapeHtml(c.text)}</span>`).join('')}
+      </div>
+    </div>
+    ${event.immediate ? `
+      <div class="step-list">
+        <div class="step-list-title"><span class="step-list-icon">🔥</span>פעולות מיידיות</div>
+        ${event.immediate.map((s, i) => `
+          <div class="step">
+            <div class="step-num">${i+1}</div>
+            <div class="step-content">
+              <div class="step-title">${escapeHtml(s.title)}</div>
+              <div class="step-detail">${escapeHtml(s.detail)}</div>
+            </div>
+          </div>
+        `).join('')}
+      </div>` : ''}
+    ${event.investigation ? `
+      <div class="step-list">
+        <div class="step-list-title"><span class="step-list-icon">🔍</span>המשך החקירה</div>
+        ${event.investigation.map((s, i) => `
+          <div class="step">
+            <div class="step-num">${i+1}</div>
+            <div class="step-content">
+              <div class="step-title">${escapeHtml(s.title)}</div>
+              <div class="step-detail">${escapeHtml(s.detail)}</div>
+            </div>
+          </div>
+        `).join('')}
+      </div>` : ''}
+    ${event.forms && event.forms.length ? `
+      <div class="card">
+        <div class="card-header"><div class="card-title">📋 טפסים נדרשים</div></div>
+        <div class="card-body">
+          <ul class="form-list">${event.forms.map(f => `<li>${escapeHtml(f)}</li>`).join('')}</ul>
+        </div>
+      </div>` : ''}
+    ${event.tips && event.tips.length ? `
+      <div class="section-header">💡 טיפים לנבחנים ולעבודה</div>
+      ${event.tips.map(t => `
+        <div class="tip-box tip-box-${t.type}">
+          <div class="tip-box-title ${t.type}">${escapeHtml(t.title)}</div>
+          <div>${t.text}</div>
+        </div>
+      `).join('')}` : ''}
+  `;
+}
+
+function closeEvent() { state.currentEvent = null; renderEvents(); }
+
+function renderClassifications() {
+  document.getElementById('screen-classifications').innerHTML = `
+    <div class="page-header">
+      <div class="page-title">סיווגי תיקים</div>
+      <div class="page-sub">כל הסיווגים במשטרת ישראל - מתי להשתמש בכל אחד</div>
+    </div>
+    <div class="tip-box tip-box-info" style="margin-bottom: 16px;">
+      <div class="tip-box-title info">📑 חוקי הסיווג</div>
+      <div>סיווג נכון = טיפול נכון. תמיד אפשר לשנות סיווג אם מתבררות עובדות חדשות. תיק שהתחיל ש.כ ומסתבר שהצתה - פותחים פ.א חדש.</div>
+    </div>
+    ${CLASSIFICATIONS_REF.map(c => `
+      <div class="class-card">
+        <div class="class-card-header"><span class="class-code">${escapeHtml(c.code)}</span></div>
+        <div class="class-name">${escapeHtml(c.name)}</div>
+        <div class="class-desc">${escapeHtml(c.desc)}</div>
+        <div class="class-when"><strong>מתי:</strong> ${escapeHtml(c.when)}</div>
+      </div>
+    `).join('')}
+  `;
+}
+
+function renderTips() {
+  document.getElementById('screen-tips').innerHTML = `
+    <div class="page-header">
+      <div class="page-title">טיפים לנבחנים</div>
+      <div class="page-sub">שאלות נפוצות במבחן תפמ"ק - תשובות מדויקות עם מקורות</div>
+    </div>
+    ${TIPS_CATEGORIES.map(cat => `
+      <div class="tip-category ${state.expandedTips.has(cat.id) ? 'expanded' : ''}">
+        <div class="tip-category-header" onclick="toggleTipCategory('${cat.id}')">
+          <span class="tip-category-icon">${cat.icon}</span>
+          <span>${escapeHtml(cat.title)}</span>
+          <span class="tip-category-chevron">›</span>
+        </div>
+        <div class="tip-category-body">
+          ${cat.tips.map(t => `
+            <div class="tip-item">
+              <div class="tip-item-q">❓ ${escapeHtml(t.q)}</div>
+              <div class="tip-item-a">${t.a}</div>
+            </div>
+          `).join('')}
+        </div>
+      </div>
+    `).join('')}
+  `;
+}
+
+function toggleTipCategory(id) {
+  if (state.expandedTips.has(id)) { state.expandedTips.delete(id); } else { state.expandedTips.add(id); }
+  renderTips();
+}
+
+function renderProfile() {
+  const s = STATIONS[state.station];
+  document.getElementById('screen-profile').innerHTML = `
+    <button class="back-btn" onclick="navigate('morning')">← חזרה</button>
+    <div class="profile-hero">
+      <div class="profile-hero-name">${escapeHtml(s.fullName)}</div>
+      <div class="profile-hero-meta">${escapeHtml(s.district)}</div>
+      <div class="profile-stats">
+        <div class="profile-stat">
+          <div class="profile-stat-label">אוכלוסייה</div>
+          <div class="profile-stat-value" style="font-size: 13px;">${escapeHtml(s.population)}</div>
+        </div>
+        <div class="profile-stat">
+          <div class="profile-stat-label">אתגרים עיקריים</div>
+          <div class="profile-stat-value" style="font-size: 13px;">${escapeHtml(s.challenges)}</div>
+        </div>
+      </div>
+    </div>
+    <div class="tip-box tip-box-purple" style="margin-bottom: 16px;">
+      <div class="tip-box-title purple">💼 הערות מהשטח</div>
+      <div>${escapeHtml(s.notes)}</div>
+    </div>
+    <div class="section-header">בעלי תפקידים מרכזיים</div>
+    ${s.keyRoles.map(r => `
+      <div class="role-card">
+        <div class="role-card-name">${escapeHtml(r.name)}</div>
+        <div class="role-card-resp">${escapeHtml(r.resp)}</div>
+      </div>
+    `).join('')}
+    <div class="section-header">החלף תחנה</div>
+    <button class="reset-btn" onclick="openStationPicker()" style="margin-top: 0;">בחר תחנה אחרת</button>
+  `;
+}
+
+function openStationPicker() {
+  document.getElementById('modal-title').textContent = 'בחר תחנה';
+  const body = `
+    ${Object.values(STATIONS).map(s => `
+      <div class="station-option ${state.station === s.id ? 'selected' : ''}" onclick="selectStation('${s.id}')">
+        <div class="station-option-name">${escapeHtml(s.fullName)}</div>
+        <div class="station-option-detail">${escapeHtml(s.district)} · ${escapeHtml(s.population)}</div>
+      </div>
+    `).join('')}
+    <button class="reset-btn" onclick="closeModal(); navigate('profile');" style="margin-top: 16px;">📋 פרטי תחנה מלאים</button>
+  `;
+  document.getElementById('modal-body').innerHTML = body;
+  document.getElementById('modal').classList.add('open');
+}
+
+function selectStation(id) {
+  state.station = id;
+  saveStation();
+  closeModal();
+  render();
+  showToast(`עברת ל${STATIONS[id].fullName}`);
+}
+
+function closeModal() {
+  document.getElementById('modal').classList.remove('open');
+}
+
+document.addEventListener('DOMContentLoaded', () => {
+  document.querySelectorAll('.tab-btn').forEach(t => {
+    t.addEventListener('click', () => navigate(t.dataset.target));
+  });
+  document.getElementById('modal').addEventListener('click', (e) => {
+    if (e.target.id === 'modal') closeModal();
+  });
+  render();
+});
+</script>
+</body>
+</html>
