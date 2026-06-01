@@ -169,6 +169,105 @@
   .empty-icon { font-size: 48px; margin-bottom: 12px; }
   .floating-tip { position: fixed; bottom: 100px; left: 50%; transform: translateX(-50%); background: var(--success); color: white; padding: 12px 20px; border-radius: 10px; font-weight: 700; z-index: 200; box-shadow: 0 4px 16px rgba(0,0,0,0.5); animation: toastIn 0.3s; }
   @keyframes toastIn { from { opacity: 0; transform: translate(-50%, 10px); } to { opacity: 1; transform: translate(-50%, 0); } }
+  /* ============ ACTIVE CASES ============ */
+  .active-case-card {
+    background: linear-gradient(135deg, var(--surface), var(--surface-2));
+    border: 1px solid var(--accent);
+    border-radius: 12px;
+    padding: 14px 16px;
+    margin-bottom: 10px;
+    cursor: pointer;
+    transition: all 0.15s;
+  }
+  .active-case-card:hover { border-color: var(--accent-2); transform: translateY(-1px); }
+  .active-case-header { display: flex; align-items: center; gap: 12px; margin-bottom: 10px; }
+  .active-case-icon { font-size: 28px; }
+  .active-case-number {
+    font-weight: 800; font-size: 16px; color: var(--accent-2);
+    background: var(--accent-bg); display: inline-block;
+    padding: 2px 10px; border-radius: 6px;
+  }
+  .active-case-event { font-size: 13px; color: var(--text-2); margin-top: 4px; }
+  .active-case-delete {
+    background: transparent; color: var(--text-3); font-size: 18px;
+    padding: 4px 8px; border-radius: 6px;
+  }
+  .active-case-delete:hover { background: var(--danger-bg); color: var(--danger); }
+  .active-case-progress-bar { height: 8px; background: var(--bg); border-radius: 4px; overflow: hidden; margin-top: 8px; }
+  .active-case-progress-fill { height: 100%; background: var(--danger); transition: width 0.3s; }
+  .active-case-progress-fill.warning { background: var(--warning); }
+  .active-case-progress-fill.success { background: var(--success); }
+  .active-case-progress-text { font-size: 12px; color: var(--text-2); margin-top: 6px; font-weight: 600; }
+
+  .active-case-detail-hero {
+    background: linear-gradient(135deg, var(--accent-bg), var(--purple-bg));
+    border: 1px solid var(--accent);
+    border-radius: 16px; padding: 18px; margin-bottom: 16px;
+  }
+  .active-case-detail-number {
+    font-weight: 800; font-size: 14px; color: var(--accent-2);
+    background: var(--bg); display: inline-block;
+    padding: 3px 12px; border-radius: 8px; margin-bottom: 4px;
+  }
+
+  .case-action-item {
+    padding: 14px 16px; display: flex; gap: 12px; border-top: 1px solid var(--border);
+    cursor: pointer; transition: background 0.15s; align-items: flex-start;
+  }
+  .case-action-item:first-of-type { border-top: none; }
+  .case-action-item:hover { background: var(--surface-2); }
+  .case-action-item.done .check-box { background: var(--success); border-color: var(--success); }
+  .case-action-item.done .check-box::after { content: "\2713"; color: white; font-weight: 800; font-size: 14px; }
+  .case-action-item.done .step-title { text-decoration: line-through; color: var(--text-3); }
+  .case-action-item.done .step-detail { color: var(--text-3); }
+  .case-action-content { flex: 1; display: flex; gap: 12px; align-items: flex-start; }
+  .step-num-small {
+    width: 24px; height: 24px; border-radius: 50%; background: var(--surface-3);
+    color: var(--text-2); display: flex; align-items: center; justify-content: center;
+    font-weight: 800; font-size: 12px; flex-shrink: 0;
+  }
+  .case-action-item.done .step-num-small { background: var(--success); color: white; }
+
+  /* ============ ADD CASE BUTTON ============ */
+  .add-case-btn {
+    width: 100%; background: linear-gradient(135deg, var(--accent), var(--purple));
+    color: white; padding: 14px; border-radius: 12px;
+    font-weight: 700; font-size: 15px; margin-bottom: 16px;
+    display: flex; align-items: center; justify-content: center; gap: 8px;
+    box-shadow: 0 4px 12px rgba(59, 130, 246, 0.3);
+    transition: transform 0.15s;
+  }
+  .add-case-btn:hover { transform: translateY(-1px); }
+  .add-case-confirm {
+    flex: 1; background: var(--accent); color: white; padding: 12px;
+    border-radius: 10px; font-weight: 700; font-size: 14px;
+  }
+  .add-case-confirm:hover { background: var(--accent-2); }
+
+  /* ============ ROLE CARD WITH PHONE ============ */
+  .role-card-detailed {
+    background: var(--surface); border: 1px solid var(--border);
+    border-radius: 10px; padding: 14px; margin-bottom: 8px;
+  }
+  .role-card-header {
+    display: flex; justify-content: space-between; align-items: center; gap: 12px;
+  }
+  .role-card-role {
+    font-size: 12px; color: var(--text-3); font-weight: 600;
+    text-transform: uppercase; letter-spacing: 0.5px;
+  }
+  .role-card-person { font-weight: 700; font-size: 16px; margin-top: 2px; }
+  .role-card-phone {
+    background: var(--success-bg); color: var(--success);
+    padding: 8px 14px; border-radius: 20px;
+    font-weight: 700; font-size: 14px;
+    text-decoration: none; display: inline-flex; align-items: center; gap: 6px;
+    transition: all 0.15s; white-space: nowrap;
+  }
+  .role-card-phone:hover { background: var(--success); color: white; }
+  .phone-icon { font-size: 16px; }
+  .phone-number { font-family: 'Heebo', monospace; letter-spacing: 0.5px; }
+
 </style>
 </head>
 <body>
@@ -212,12 +311,19 @@ const STATIONS = {
     challenges: 'אלמ"ב גבוהה, סכסוכי שכנים, סמים, פשיעה מאורגנת',
     notes: 'תחנה עמוסה - הקפד על תיעוד מסודר. עבודה צמודה עם רווחה ועם משרד התביעות.',
     keyRoles: [
-      { name: 'מפקד התחנה', resp: 'אחראי כללי לכל הפעילות בתחנה' },
-      { name: 'קצין אח"מ מרחבי', resp: 'מאשר חקירות עו"ד, חיפושים מיוחדים, סגירת תיקי פשע' },
-      { name: 'רל"ח (רכז לחקירות)', resp: 'מאשר טיפול בזירת מקרה מוות, ויתור על נתיחה' },
-      { name: 'קצין אלמ"ב', resp: 'מפקח על כל תיקי אלמ"ב, ביקורת כל שבועיים' },
-      { name: 'רמ"ח (ראש מחלקת חקירות)', resp: 'מנהל את משרד החקירות בשגרה היומיומית' },
-      { name: 'קצין תורן', resp: 'אחראי על כל תיק חדש שנפתח במשמרת' }
+      { name: 'מידד לביא', role: 'מת"ח', phone: '0506270232' },
+      { name: 'דוד טליאז', role: 'סמת"ח', phone: '0506274145' },
+      { name: 'אלכסנדר שטרן', role: 'קצין אג"מ', phone: '0505070200' },
+      { name: 'ראובני ברכה', role: 'קצין אח"מ', phone: '0509750007' },
+      { name: 'ליאור חדד', role: 'רמ"ח', phone: '0528886068' },
+      { name: 'עוז טננוורצל', role: 'ראש משרד משפחה', phone: '0529533350' },
+      { name: 'שגיא אברמוב', role: 'ראש משרד נוער', phone: '0527713726' },
+      { name: 'עמוס קאלדס', role: 'ראש משרד כללי', phone: '0545431542' },
+      { name: 'ירון כהן', role: 'ראש משרד פשעים', phone: '0505076828' },
+      { name: 'יונתן דוד', role: 'ראש חוליית זי"ט', phone: '0584912191' },
+      { name: 'מוטי איש', role: 'קמב"ל', phone: '0505807662' },
+      { name: 'דוד שושן', role: 'קמ"ן', phone: '0545301595' },
+      { name: 'מוטי שמואל', role: 'רכז חקירות', phone: '0524553376' }
     ]
   },
   ramla: {
@@ -226,12 +332,13 @@ const STATIONS = {
     challenges: 'פשיעה מאורגנת, אלמ"ב, סמים, מאבקי שליטה',
     notes: 'דגש על תיקי מין רגישים - חוקרת מוסמכת חובה. עבודה עם פרקליטות מחוז המרכז.',
     keyRoles: [
-      { name: 'מפקד התחנה', resp: 'אחראי כללי לכל הפעילות בתחנה' },
-      { name: 'קצין אח"מ מרחבי', resp: 'מאשר חקירות עו"ד, חיפושים, סגירת תיקי פשע' },
-      { name: 'רל"ח', resp: 'מאשר טיפול בזירת מקרה מוות' },
-      { name: 'קצין אלמ"ב', resp: 'פיקוח על כל תיקי אלמ"ב' },
-      { name: 'רמ"ח', resp: 'ניהול שוטף של משרד החקירות' },
-      { name: 'קצין תורן', resp: 'אחראי על תיקים חדשים במשמרת' }
+      { name: 'אלירן לוי', role: 'קצין אח"מ', phone: '0543551418' },
+      { name: 'עדן יונה', role: 'רמ"ח', phone: '0505076549' },
+      { name: 'ענת ממו', role: 'רכז אח"מ', phone: '0547937103' },
+      { name: 'ניר ששון', role: 'פשעים', phone: '0505070076' },
+      { name: 'אלכס ריבקין', role: 'שגרה', phone: '0506985533' },
+      { name: 'אופק סולומון', role: 'אלמ"ב', phone: '0504488564' },
+      { name: 'ספי לובר', role: 'נוער', phone: '' }
     ]
   }
 };
@@ -241,7 +348,10 @@ const state = {
   screen: 'morning',
   currentEvent: null,
   checklistState: JSON.parse(localStorage.getItem('checklist') || '{}'),
-  expandedTips: new Set()
+  expandedTips: new Set(),
+  activeCases: JSON.parse(localStorage.getItem('activeCases') || '[]'),
+  caseActionState: JSON.parse(localStorage.getItem('caseActionState') || '{}'),
+  currentActiveCase: null
 };
 
 const MORNING_CHECKLIST = [
@@ -672,6 +782,10 @@ const EVENTS = [
 <script>
 function saveChecklist() { localStorage.setItem('checklist', JSON.stringify(state.checklistState)); }
 function saveStation() { localStorage.setItem('station', state.station); }
+function saveActiveCases() {
+  localStorage.setItem('activeCases', JSON.stringify(state.activeCases));
+  localStorage.setItem('caseActionState', JSON.stringify(state.caseActionState));
+}
 
 function escapeHtml(text) {
   if (text == null) return '';
@@ -699,6 +813,7 @@ function showToast(msg) {
 function navigate(screen) {
   state.screen = screen;
   state.currentEvent = null;
+  state.currentActiveCase = null;
   document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
   document.getElementById('screen-' + screen)?.classList.add('active');
   document.querySelectorAll('.tab-btn').forEach(t => {
@@ -720,11 +835,26 @@ function openEvent(eventId) {
   renderEvents();
 }
 
+function openActiveCase(caseId) {
+  state.currentActiveCase = caseId;
+  state.screen = 'morning';
+  document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
+  document.getElementById('screen-morning').classList.add('active');
+  document.querySelectorAll('.tab-btn').forEach(t => {
+    t.classList.toggle('active', t.dataset.target === 'morning');
+  });
+  window.scrollTo(0, 0);
+  renderActiveCaseDetail();
+}
+
 function render() {
   const station = STATIONS[state.station];
   document.getElementById('station-pill').textContent = `תחנת ${station.name} 📍`;
   switch (state.screen) {
-    case 'morning': renderMorning(); break;
+    case 'morning':
+      if (state.currentActiveCase) { renderActiveCaseDetail(); }
+      else { renderMorning(); }
+      break;
     case 'events': renderEvents(); break;
     case 'classifications': renderClassifications(); break;
     case 'tips': renderTips(); break;
@@ -738,6 +868,36 @@ function renderMorning() {
   const percentage = totalItems ? Math.round(doneItems / totalItems * 100) : 0;
   const station = STATIONS[state.station];
 
+  let activeCasesHtml = '';
+  if (state.activeCases.length > 0) {
+    activeCasesHtml = `
+      <div class="section-header">📂 התיקים שלי (${state.activeCases.length})</div>
+      ${state.activeCases.map(c => {
+        const event = EVENTS.find(e => e.id === c.eventId);
+        if (!event) return '';
+        const totalActions = (event.immediate?.length || 0) + (event.investigation?.length || 0);
+        const doneActions = countCaseActions(c.id, event);
+        const pct = totalActions ? Math.round(doneActions / totalActions * 100) : 0;
+        return `
+          <div class="active-case-card" onclick="openActiveCase('${c.id}')">
+            <div class="active-case-header">
+              <div class="active-case-icon">${event.icon}</div>
+              <div style="flex: 1;">
+                <div class="active-case-number">תיק ${escapeHtml(c.caseNumber)}</div>
+                <div class="active-case-event">${escapeHtml(event.name)}</div>
+              </div>
+              <button class="active-case-delete" onclick="event.stopPropagation(); deleteActiveCase('${c.id}')">🗑</button>
+            </div>
+            <div class="active-case-progress-bar">
+              <div class="active-case-progress-fill ${pct >= 80 ? 'success' : pct >= 40 ? 'warning' : ''}" style="width: ${pct}%"></div>
+            </div>
+            <div class="active-case-progress-text">${doneActions} / ${totalActions} פעולות הושלמו (${pct}%)</div>
+          </div>
+        `;
+      }).join('')}
+    `;
+  }
+
   const html = `
     <div class="morning-hero">
       <div class="morning-hero-greeting">${getGreeting()}, רב'</div>
@@ -746,6 +906,11 @@ function renderMorning() {
       <div class="morning-progress"><div class="morning-progress-fill" style="width: ${percentage}%"></div></div>
       <div class="morning-progress-text">${doneItems} / ${totalItems} הושלמו (${percentage}%)</div>
     </div>
+
+    ${activeCasesHtml}
+
+    ${state.activeCases.length > 0 ? '<div class="section-header">צ׳קליסט יומי</div>' : ''}
+
     ${MORNING_CHECKLIST.map(group => {
       const groupDone = group.items.filter(i => state.checklistState[i.id]).length;
       const groupTotal = group.items.length;
@@ -771,9 +936,25 @@ function renderMorning() {
         </div>
       `;
     }).join('')}
+
     <button class="reset-btn" onclick="resetChecklist()">↻ אפס צ׳קליסט (התחלת יום חדש)</button>
   `;
   document.getElementById('screen-morning').innerHTML = html;
+}
+
+function countCaseActions(caseId, event) {
+  let count = 0;
+  if (event.immediate) {
+    event.immediate.forEach((_, idx) => {
+      if (state.caseActionState[`${caseId}|i-${idx}`]) count++;
+    });
+  }
+  if (event.investigation) {
+    event.investigation.forEach((_, idx) => {
+      if (state.caseActionState[`${caseId}|v-${idx}`]) count++;
+    });
+  }
+  return count;
 }
 
 function toggleItem(id) {
@@ -789,6 +970,112 @@ function resetChecklist() {
     renderMorning();
     showToast('הצ׳קליסט אופס - יום חדש!');
   }
+}
+
+function deleteActiveCase(caseId) {
+  if (!confirm('למחוק את התיק מהרשימה? הפעולות שסומנו ימחקו.')) return;
+  state.activeCases = state.activeCases.filter(c => c.id !== caseId);
+  Object.keys(state.caseActionState).forEach(k => {
+    if (k.startsWith(caseId + '|')) delete state.caseActionState[k];
+  });
+  saveActiveCases();
+  renderMorning();
+  showToast('התיק נמחק');
+}
+
+function renderActiveCaseDetail() {
+  const caseObj = state.activeCases.find(c => c.id === state.currentActiveCase);
+  if (!caseObj) { state.currentActiveCase = null; renderMorning(); return; }
+  const event = EVENTS.find(e => e.id === caseObj.eventId);
+  if (!event) { state.currentActiveCase = null; renderMorning(); return; }
+
+  const totalActions = (event.immediate?.length || 0) + (event.investigation?.length || 0);
+  const doneActions = countCaseActions(caseObj.id, event);
+  const pct = totalActions ? Math.round(doneActions / totalActions * 100) : 0;
+
+  const html = `
+    <button class="back-btn" onclick="closeActiveCase()">← חזרה לצ׳קליסט בוקר</button>
+
+    <div class="active-case-detail-hero">
+      <div class="event-detail-icon-row">
+        <span class="event-detail-icon">${event.icon}</span>
+        <div style="flex: 1;">
+          <div class="active-case-detail-number">תיק ${escapeHtml(caseObj.caseNumber)}</div>
+          <div class="event-detail-title" style="font-size: 18px;">${escapeHtml(event.name)}</div>
+        </div>
+      </div>
+      <div class="event-detail-classifications">
+        ${event.classifications.map(c => `<span class="pill ${c.type}">${escapeHtml(c.text)}</span>`).join('')}
+      </div>
+      <div class="active-case-progress-bar" style="margin-top: 14px;">
+        <div class="active-case-progress-fill ${pct >= 80 ? 'success' : pct >= 40 ? 'warning' : ''}" style="width: ${pct}%"></div>
+      </div>
+      <div class="active-case-progress-text" style="text-align: center;">${doneActions} / ${totalActions} פעולות הושלמו (${pct}%)</div>
+    </div>
+
+    ${event.immediate ? `
+      <div class="step-list">
+        <div class="step-list-title"><span class="step-list-icon">🔥</span>פעולות מיידיות</div>
+        ${event.immediate.map((s, i) => {
+          const key = `${caseObj.id}|i-${i}`;
+          const done = state.caseActionState[key];
+          return `
+            <div class="case-action-item ${done ? 'done' : ''}" onclick="toggleCaseAction('${caseObj.id}', 'i-${i}')">
+              <div class="check-box"></div>
+              <div class="case-action-content">
+                <div class="step-num-small">${i+1}</div>
+                <div style="flex: 1;">
+                  <div class="step-title">${escapeHtml(s.title)}</div>
+                  <div class="step-detail">${escapeHtml(s.detail)}</div>
+                </div>
+              </div>
+            </div>
+          `;
+        }).join('')}
+      </div>` : ''}
+
+    ${event.investigation ? `
+      <div class="step-list">
+        <div class="step-list-title"><span class="step-list-icon">🔍</span>המשך החקירה</div>
+        ${event.investigation.map((s, i) => {
+          const key = `${caseObj.id}|v-${i}`;
+          const done = state.caseActionState[key];
+          return `
+            <div class="case-action-item ${done ? 'done' : ''}" onclick="toggleCaseAction('${caseObj.id}', 'v-${i}')">
+              <div class="check-box"></div>
+              <div class="case-action-content">
+                <div class="step-num-small">${i+1}</div>
+                <div style="flex: 1;">
+                  <div class="step-title">${escapeHtml(s.title)}</div>
+                  <div class="step-detail">${escapeHtml(s.detail)}</div>
+                </div>
+              </div>
+            </div>
+          `;
+        }).join('')}
+      </div>` : ''}
+
+    ${event.forms && event.forms.length ? `
+      <div class="card">
+        <div class="card-header"><div class="card-title">📋 טפסים נדרשים</div></div>
+        <div class="card-body">
+          <ul class="form-list">${event.forms.map(f => `<li>${escapeHtml(f)}</li>`).join('')}</ul>
+        </div>
+      </div>` : ''}
+  `;
+  document.getElementById('screen-morning').innerHTML = html;
+}
+
+function toggleCaseAction(caseId, actionKey) {
+  const key = `${caseId}|${actionKey}`;
+  state.caseActionState[key] = !state.caseActionState[key];
+  saveActiveCases();
+  renderActiveCaseDetail();
+}
+
+function closeActiveCase() {
+  state.currentActiveCase = null;
+  renderMorning();
 }
 
 function renderEvents() {
@@ -838,6 +1125,7 @@ function renderEventDetail() {
   if (!event) { state.currentEvent = null; renderEvents(); return; }
   document.getElementById('screen-events').innerHTML = `
     <button class="back-btn" onclick="closeEvent()">← חזרה לרשימת אירועים</button>
+
     <div class="event-detail-header">
       <div class="event-detail-icon-row">
         <span class="event-detail-icon">${event.icon}</span>
@@ -848,6 +1136,12 @@ function renderEventDetail() {
         ${event.classifications.map(c => `<span class="pill ${c.type}">${escapeHtml(c.text)}</span>`).join('')}
       </div>
     </div>
+
+    <button class="add-case-btn" onclick="openAddCaseModal('${event.id}')">
+      <span style="font-size: 22px;">➕</span>
+      <span>פתח כתיק שלי (עם מספר תיק וסימון פעולות)</span>
+    </button>
+
     ${event.immediate ? `
       <div class="step-list">
         <div class="step-list-title"><span class="step-list-icon">🔥</span>פעולות מיידיות</div>
@@ -893,6 +1187,64 @@ function renderEventDetail() {
 }
 
 function closeEvent() { state.currentEvent = null; renderEvents(); }
+
+function openAddCaseModal(eventId) {
+  const event = EVENTS.find(e => e.id === eventId);
+  if (!event) return;
+  document.getElementById('modal-title').textContent = 'פתיחת תיק חדש';
+  document.getElementById('modal-body').innerHTML = `
+    <div style="text-align: center; margin-bottom: 16px;">
+      <div style="font-size: 48px;">${event.icon}</div>
+      <div style="font-weight: 700; font-size: 16px; margin-top: 8px;">${escapeHtml(event.name)}</div>
+      <div style="color: var(--text-2); font-size: 13px;">${escapeHtml(event.description)}</div>
+    </div>
+
+    <div style="margin-bottom: 16px;">
+      <label style="display: block; font-weight: 600; margin-bottom: 6px;">מספר תיק (פלא"א)</label>
+      <input type="text" id="case-number-input" placeholder="לדוגמה: 4509 או 2026-4509"
+        style="width: 100%; background: var(--bg); border: 1px solid var(--border); border-radius: 8px; padding: 12px; color: var(--text); font-size: 16px; direction: rtl;"
+        autofocus />
+    </div>
+
+    <div class="tip-box tip-box-info" style="margin-bottom: 0;">
+      <div class="tip-box-title info">📌 איך זה עובד?</div>
+      <div>אחרי שתפתח את התיק, הוא יופיע ב"צ׳קליסט בוקר" שלך. תוכל לסמן כל פעולה שביצעת ולעקוב אחר ההתקדמות שלך בתיק.</div>
+    </div>
+
+    <div style="display: flex; gap: 8px; margin-top: 20px;">
+      <button class="reset-btn" onclick="closeModal()" style="margin-top: 0;">ביטול</button>
+      <button class="add-case-confirm" onclick="confirmAddCase('${eventId}')">פתח תיק</button>
+    </div>
+  `;
+  document.getElementById('modal').classList.add('open');
+  setTimeout(() => document.getElementById('case-number-input')?.focus(), 50);
+}
+
+function confirmAddCase(eventId) {
+  const input = document.getElementById('case-number-input');
+  const caseNumber = input.value.trim();
+  if (!caseNumber) {
+    showToast('יש להזין מספר תיק');
+    input.focus();
+    return;
+  }
+  // check for duplicates
+  if (state.activeCases.find(c => c.eventId === eventId && c.caseNumber === caseNumber)) {
+    showToast('תיק עם מספר זה כבר קיים');
+    return;
+  }
+  const newCase = {
+    id: 'case-' + Date.now(),
+    eventId: eventId,
+    caseNumber: caseNumber,
+    createdAt: new Date().toISOString()
+  };
+  state.activeCases.push(newCase);
+  saveActiveCases();
+  closeModal();
+  showToast('התיק נוסף לצ׳קליסט שלך!');
+  navigate('morning');
+}
 
 function renderClassifications() {
   document.getElementById('screen-classifications').innerHTML = `
@@ -948,6 +1300,50 @@ function toggleTipCategory(id) {
 
 function renderProfile() {
   const s = STATIONS[state.station];
+
+  const rolesHtml = s.keyRoles.map(r => {
+    const hasPhone = r.phone && r.phone.length > 0;
+    const hasName = r.name && r.name.length > 0;
+    if (hasName && hasPhone) {
+      return `
+        <div class="role-card-detailed">
+          <div class="role-card-header">
+            <div>
+              <div class="role-card-role">${escapeHtml(r.role || r.name)}</div>
+              <div class="role-card-person">${escapeHtml(r.name)}</div>
+            </div>
+            <a href="tel:${escapeHtml(r.phone)}" class="role-card-phone">
+              <span class="phone-icon">📞</span>
+              <span class="phone-number">${escapeHtml(r.phone)}</span>
+            </a>
+          </div>
+          ${r.resp ? `<div class="role-card-resp" style="margin-top: 8px;">${escapeHtml(r.resp)}</div>` : ''}
+        </div>
+      `;
+    }
+    if (hasName && !hasPhone) {
+      return `
+        <div class="role-card-detailed">
+          <div class="role-card-header">
+            <div>
+              <div class="role-card-role">${escapeHtml(r.role || r.name)}</div>
+              <div class="role-card-person">${escapeHtml(r.name)}</div>
+            </div>
+            <span style="color: var(--text-3); font-size: 12px;">אין טלפון</span>
+          </div>
+          ${r.resp ? `<div class="role-card-resp" style="margin-top: 8px;">${escapeHtml(r.resp)}</div>` : ''}
+        </div>
+      `;
+    }
+    // No name (only role) - LOD-style
+    return `
+      <div class="role-card">
+        <div class="role-card-name">${escapeHtml(r.name)}</div>
+        <div class="role-card-resp">${escapeHtml(r.resp)}</div>
+      </div>
+    `;
+  }).join('');
+
   document.getElementById('screen-profile').innerHTML = `
     <button class="back-btn" onclick="navigate('morning')">← חזרה</button>
     <div class="profile-hero">
@@ -969,12 +1365,7 @@ function renderProfile() {
       <div>${escapeHtml(s.notes)}</div>
     </div>
     <div class="section-header">בעלי תפקידים מרכזיים</div>
-    ${s.keyRoles.map(r => `
-      <div class="role-card">
-        <div class="role-card-name">${escapeHtml(r.name)}</div>
-        <div class="role-card-resp">${escapeHtml(r.resp)}</div>
-      </div>
-    `).join('')}
+    ${rolesHtml}
     <div class="section-header">החלף תחנה</div>
     <button class="reset-btn" onclick="openStationPicker()" style="margin-top: 0;">בחר תחנה אחרת</button>
   `;
